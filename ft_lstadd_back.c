@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:18:32 by brhajji-         ###   ########.fr       */
+/*   Created: 2021/01/23 07:27:56 by abahmani          #+#    #+#             */
+/*   Updated: 2021/01/23 09:33:52 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "../libft.h"
-
-typedef struct	s_elem
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	int				*content;
-	struct s_elem	*next;
-}				t_elem;
+	t_list	*l;
 
-int		input_check(int ac, char **av);
-t_list	*init(int ac, char **av, t_list *pile_a);
-
-#endif
-
-
-
+	l = *alst;
+	if (!new)
+		return ;
+	if (!alst || !(*alst))
+		*alst = new;
+	else
+	{
+		while ((l->next))
+			l = l->next;
+		l->next = new;
+	}
+}

@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:18:32 by brhajji-         ###   ########.fr       */
+/*   Created: 2021/01/23 07:30:03 by abahmani          #+#    #+#             */
+/*   Updated: 2021/01/23 09:32:39 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "../libft.h"
-
-typedef struct	s_elem
+int	ft_lstsize(t_list *lst)
 {
-	int				*content;
-	struct s_elem	*next;
-}				t_elem;
+	int		count;
+	t_list	*l;
 
-int		input_check(int ac, char **av);
-t_list	*init(int ac, char **av, t_list *pile_a);
-
-#endif
-
-
-
+	count = 0;
+	l = lst;
+	while (l)
+	{
+		count++;
+		l = l->next;
+	}
+	return (count);
+}

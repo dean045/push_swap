@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:30 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 15:58:53 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:19:46 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,20 @@ void	*ft_free(t_list *pile)
 }
 
 
-void	*init(int ac, char **av, t_list *pile_a)
+t_list	*init(int ac, char **av, t_list *pile_a)
 {
 	int		x;
+	int		*p;
 	t_list	*tmp;
 
-	pile_a = malloc(sizeof(t_elem) * ac);
-	if (pile_a)
+	pile_a = malloc(sizeof(t_list) * (ac - 1));
+	p = malloc(sizeof(int *));
+	if (!pile_a)
 		return (NULL);
-	tmp = malloc(sizeof(t_elem));
+	tmp = malloc(sizeof(t_list ));
 	if (!tmp)
 	{
+		free(p);
 		free(pile_a);
 		pile_a = NULL;
 		return (NULL);
@@ -38,10 +41,12 @@ void	*init(int ac, char **av, t_list *pile_a)
 	x = ac;
 	while (--x > 0)
 	{
-		tmp->content = ft_atoi(av[x]);
+		free(tmp);
+		*p = ft_atoi(av[x]);
+		tmp = ft_lstnew(p);
 		ft_lstadd_front(&pile_a, tmp);
 	}
 	free(tmp);
 	tmp = NULL;
-	return ("ok");
+	return (pile_a);
 }

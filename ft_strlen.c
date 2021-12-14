@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:18:32 by brhajji-         ###   ########.fr       */
+/*   Created: 2021/01/09 16:01:54 by abahmani          #+#    #+#             */
+/*   Updated: 2021/01/09 18:18:44 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "../libft.h"
-
-typedef struct	s_elem
+size_t	ft_strlen(const char *s)
 {
-	int				*content;
-	struct s_elem	*next;
-}				t_elem;
+	size_t	i;
 
-int		input_check(int ac, char **av);
-t_list	*init(int ac, char **av, t_list *pile_a);
-
-#endif
-
-
-
+	i = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	return (i);
+}

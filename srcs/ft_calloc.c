@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:18:32 by brhajji-         ###   ########.fr       */
+/*   Created: 2021/01/09 18:23:06 by abahmani          #+#    #+#             */
+/*   Updated: 2021/01/17 12:19:43 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "../libft.h"
-
-typedef struct	s_elem
+void	*ft_calloc(size_t count, size_t size)
 {
-	int				*content;
-	struct s_elem	*next;
-}				t_elem;
+	size_t			i;
+	unsigned char	*ptr;
 
-int		input_check(int ac, char **av);
-t_list	*init(int ac, char **av, t_list *pile_a);
-
-#endif
-
-
-
+	i = 0;
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	return (ft_memset(ptr, 0, size * count));
+}

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:18:32 by brhajji-         ###   ########.fr       */
+/*   Created: 2021/01/23 08:12:55 by abahmani          #+#    #+#             */
+/*   Updated: 2021/01/23 09:26:16 by abahmani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-# include "../libft.h"
-
-typedef struct	s_elem
+void	ft_lstclear(t_list **lst, void (*del)(void	*))
 {
-	int				*content;
-	struct s_elem	*next;
-}				t_elem;
+	t_list	*l;
 
-int		input_check(int ac, char **av);
-t_list	*init(int ac, char **av, t_list *pile_a);
-
-#endif
-
-
-
+	l = *lst;
+	while (l)
+	{
+		(*lst) = (*lst)->next;
+		ft_lstdelone(l, (*del));
+		l = *lst;
+	}
+}

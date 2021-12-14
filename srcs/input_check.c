@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   input_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:18:32 by brhajji-         ###   ########.fr       */
+/*   Created: 2021/12/14 15:22:31 by brhajji-          #+#    #+#             */
+/*   Updated: 2021/12/14 15:30:40 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "includes/push_swap.h"
 
-# include "../libft.h"
-
-typedef struct	s_elem
+int	input_check(int ac, char **av)
 {
-	int				*content;
-	struct s_elem	*next;
-}				t_elem;
+	int x ;
 
-int		input_check(int ac, char **av);
-t_list	*init(int ac, char **av, t_list *pile_a);
-
-#endif
-
-
-
+	x = 0;
+	while (++x < ac)
+	{
+		if ((av[x][0] == '-' && ft_strlen(av[x]) > 11) || ft_strlen(av[x]) > 10)
+			return (0);
+		if (ft_atoi(av[x]) > 2147483647 || ft_atoi(av[x]) < -2147483648)
+			return (0);
+	}
+	return (1);
+}
