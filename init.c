@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:30 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/15 12:12:08 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:15:20 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_list	*init(int ac, char **av)
 	pile_tmp = malloc(sizeof(t_list ) * (ac - 1));
 	if (!pile_tmp)
 		return (NULL);
-	//pile_tmp = NULL;
 	p = ft_atoi(av[1]);
 	pile_tmp = ft_lstnew(&p);
 	x = 1;
