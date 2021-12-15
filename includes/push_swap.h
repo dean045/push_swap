@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:18:32 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:04:21 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct	s_elem
 }				t_elem;
 
 int		input_check(int ac, char **av);
-t_list	*init(int ac, char **av, t_list *pile_a);
+t_list	*init(int ac, char **av);
 
 #endif
 

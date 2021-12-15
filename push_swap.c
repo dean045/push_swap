@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:22:23 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:06:46 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 	if (ac > 1)
 	{
 		if (input_check(ac, av))
-			pile_a = (t_list *)init(ac, av, pile_a);
+			pile_a = (t_list *)init(ac, av);
 else
 			return (0);
 		x = 0;
@@ -29,6 +29,7 @@ else
 		{
 			printf("elem %i = %i\n", x, pile_a->content);
 			pile_a = pile_a->next;
+			x++;
 		}
 	}
 	return (0);

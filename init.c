@@ -6,47 +6,38 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:30 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 19:19:46 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/15 12:12:08 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/push_swap.h"
 
-void	*ft_free(t_list *pile)
+t_list	*ft_free(t_list *pile)
 {
 	free(pile);
 	return (NULL);
 }
 
 
-t_list	*init(int ac, char **av, t_list *pile_a)
+t_list	*init(int ac, char **av)
 {
 	int		x;
-	int		*p;
+	int		p;
 	t_list	*tmp;
+	t_list	*pile_tmp;
 
-	pile_a = malloc(sizeof(t_list) * (ac - 1));
-	p = malloc(sizeof(int *));
-	if (!pile_a)
+	pile_tmp = malloc(sizeof(t_list ) * (ac - 1));
+	if (!pile_tmp)
 		return (NULL);
-	tmp = malloc(sizeof(t_list ));
-	if (!tmp)
+	//pile_tmp = NULL;
+	p = ft_atoi(av[1]);
+	pile_tmp = ft_lstnew(&p);
+	x = 1;
+	while (++x < ac)
 	{
-		free(p);
-		free(pile_a);
-		pile_a = NULL;
-		return (NULL);
+		p = ft_atoi(av[x]);
+		tmp = ft_lstnew(&p);
+		ft_lstadd_back(&pile_tmp, tmp);
 	}
-	tmp->next = NULL;
-	x = ac;
-	while (--x > 0)
-	{
-		free(tmp);
-		*p = ft_atoi(av[x]);
-		tmp = ft_lstnew(p);
-		ft_lstadd_front(&pile_a, tmp);
-	}
-	free(tmp);
-	tmp = NULL;
-	return (pile_a);
+	return (pile_tmp);
 }
