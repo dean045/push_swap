@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:06:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/15 15:15:05 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/17 00:38:43 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	swap(t_list *pile_x)
 	}
 }
 
-void	swap_s(t_list *pile_a, t_list pile_b)
+void	swap_s(t_list *pile_a, t_list *pile_b)
 {
 	swap(pile_a);
 	swap(pile_b);
