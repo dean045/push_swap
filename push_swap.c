@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/17 00:36:16 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:36:57 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,24 @@ int	main(int ac, char **av)
 		pile_a = push(&pile_b, pile_a);
 		print_pile(pile_a, pile_b);
 		printf("push a\n");
-		pile_b = push(&pile_a, pile_b);
 		print_pile(pile_a, pile_b);	
+		pile_b = push(&pile_a, pile_b);
 		printf("swap a\n");
 		swap(pile_a);
 		print_pile(pile_a, pile_b);
-	}
+		printf("pb pb\n");
+		pile_a = push(&pile_b, pile_a);
+		pile_a = push(&pile_b, pile_a);
+		print_pile(pile_a, pile_b);
+		printf("rr\n");
+		rr(&pile_b, &pile_a);
+		print_pile(pile_a, pile_b);
+		printf("rrr\n");
+		rrr(&pile_b, &pile_a);
+		print_pile(pile_a, pile_b);
+		printf("ss\n");
+		ss(pile_b, pile_a);
+		print_pile(pile_a, pile_b);
+}
 	return (0);
 }

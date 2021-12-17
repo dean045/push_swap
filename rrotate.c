@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:27:46 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/16 23:41:25 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:27:52 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	*rrotate(t_list *pile_x)
 	return (tmp);
 }
 
-void	rrr(t_list *pile_a, t_list *pile_b)
+void	rrr(t_list **pile_a, t_list **pile_b)
 {
-	rrotate(pile_a);
-	rrotate(pile_b);
+	*pile_a = rrotate(*pile_a);
+	*pile_b = rrotate(*pile_b);
 }

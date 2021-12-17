@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:18:16 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/17 00:30:26 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:38:51 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*push(t_list **pile_a, t_list *pile_b)
 {
 	t_list	*tmp;
 
-	if ((pile_b)->content)
+	if (pile_b && (pile_b)->content)
 	{
 		tmp = pile_b;
 		pile_b = (pile_b)->next;
