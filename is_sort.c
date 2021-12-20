@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   is_sort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/15 15:18:16 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/20 16:15:54 by brhajji-         ###   ########.fr       */
+/*   Created: 2021/12/20 12:24:32 by brhajji-          #+#    #+#             */
+/*   Updated: 2021/12/20 12:32:33 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"includes/push_swap.h"
+#include "includes/push_swap.h"
 
-void	*push(t_list **pile_a, t_list *pile_b)
+int	is_sort(t_list *pile_x)
 {
-	t_list	*tmp;
+	int	x;
+	t_list	*pile_tmp;
 
-	if (pile_b && (pile_b)->content)
+	x = 0;
+	pile_tmp = pile_x;
+	if (!pile_x)
+		return (-1);
+	while (pile_tmp && pile_tmp->next)
 	{
-		tmp = pile_b;
-		pile_b = (pile_b)->next;
-		tmp->next = *pile_a;
-		*pile_a = tmp;
+		if (pile_tmp->content > pile_tmp->next->content)
+			return (x);
+		else
+		{
+			x++;
+			pile_tmp = pile_tmp->next;
+		}
 	}
-	return (pile_b);
+	return (x);
 }
