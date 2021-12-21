@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:24:06 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/17 17:25:47 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/21 12:32:01 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	*rotate(t_list *pile_x)
 {
 	t_list *tmp;
 
-	tmp = pile_x;
-	pile_x = pile_x->next;
-	ft_lstlast(pile_x)->next = tmp;
-	tmp->next = NULL;
+	if (pile_x->next)
+	{
+		tmp = pile_x;
+		pile_x = pile_x->next;
+		ft_lstlast(pile_x)->next = tmp;
+		tmp->next = NULL;
+	}
 	return (pile_x);
 }
 

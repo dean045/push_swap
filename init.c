@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:30 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/20 16:17:29 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/21 12:38:43 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ t_list	*ft_free(t_list *pile)
 	return (NULL);
 }
 
-t_list	split_by_two(t_list **pile_a, t_list **pile_b)
+t_list	split_by_two(t_list **pile_a, t_list **pile_b, int x)
 {
-	int	x;
-
-	x = ft_lstsize(*pile_a) / 2;
 	while (x)
 	{
 		*pile_a = push(pile_b, *pile_a);
