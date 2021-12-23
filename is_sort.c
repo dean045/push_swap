@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:24:32 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/21 18:49:40 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/22 14:50:22 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 int	is_sort(t_list *pile_x)
 {
-	t_list	*pile_tmp;
-
-	pile_tmp = pile_x;
-	if (!pile_x || !pile_x->content)
-		return (-1);
-	while (pile_tmp && pile_tmp->next)
+	if (!pile_x)
+		return (0);
+	while (pile_x && pile_x->next)
 	{
-		if (pile_tmp->content > pile_tmp->next->content)
+		if (pile_x->content > pile_x->next->content)
 			return (0);
 		else
-			pile_tmp = pile_tmp->next;
+			pile_x = pile_x->next;
 	}
 	return (1);
 }

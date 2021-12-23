@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:24:06 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/21 12:32:01 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/22 14:51:48 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*rotate(t_list *pile_x)
 {
 	t_list *tmp;
 
-	if (pile_x->next)
+	if (pile_x && pile_x->next)
 	{
 		tmp = pile_x;
 		pile_x = pile_x->next;

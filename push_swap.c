@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/21 18:50:26 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/23 12:19:16 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,13 @@ int ft_sqrt(int x)
 
 int	main(int ac, char **av)
 {
-	t_list	*pile_a = NULL;
-	t_list	*pile_b = NULL;
+	t_list	*pile_a;
+	t_list	*pile_b;
 	int		*count;
 	int		x;
 	
+	pile_b = NULL;
+	pile_a = NULL;
 	if (ac > 1)
 	{
 		if (input_check(ac, av))
@@ -67,7 +69,7 @@ int	main(int ac, char **av)
 			return (0);
 		x = 0;
 		//print_pile(pile_a, pile_b);
-		//split_by_two(&pile_a, &pile_b, ft_sqrt(ft_lstsize(pile_a)));
+		split_by_two(&pile_a, &pile_b, ft_sqrt(ft_lstsize(pile_a)));
 		/*pile_a = rotate(pile_a);
 		print_pile(pile_a, pile_b);
 		printf("rotate\n");
@@ -96,7 +98,7 @@ int	main(int ac, char **av)
 		print_pile(pile_a, pile_b);
 		printf("ss\n");
 		ss(pile_b, pile_a);*/
-		tri(&pile_a, &pile_b, count);
+		tri(pile_a, pile_b, count);
 		print_pile(pile_a, pile_b);
 		//printf("%i\n", is_sort(pile_a));
 }

@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/21 16:47:11 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/23 12:17:33 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ typedef struct	s_elem
 }				t_elem;
 
 int		input_check(int ac, char **av);
-int		is_sort(t_list *pile_a);
+int		is_sort(t_list *pile_x);
 t_list	*init(int ac, char **av);
-void	tri(t_list **pile_a, t_list **pile_b, int *count);
+void	tri(t_list *pile_a, t_list *pile_b, int *count);
 void	*rrotate(t_list *pile_x);
 void	rrr(t_list **pile_a, t_list **pile_b);
 void	rr(t_list **pile_a, t_list **pile_b);
