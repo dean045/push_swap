@@ -6,7 +6,7 @@
 /*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/23 12:19:16 by brhajji-         ###   ########.fr       */
+/*   Updated: 2021/12/26 17:25:48 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,25 @@ void print_pile(t_list *pile_a, t_list *pile_b)
 {
 	int x = 0;
 	printf("|A| |B|\n");
-	while ((pile_a && pile_a->content) || (pile_b && pile_b->content))
+	while ((pile_a) || (pile_b))
 	{
-		if (pile_a && pile_a->content)
+		if (pile_a)
 		{
 			printf("|%i| ", pile_a->content);
 			pile_a = pile_a->next;
 		}
 		else
-			printf("| |");
+			printf("| | ");
 		if (pile_b)
 		{
-			if (pile_b->content)
-			{
-				printf("|%i|\n", pile_b->content);
-				pile_b = pile_b->next;
-			}
+			printf("|%i|\n", pile_b->content);
+			pile_b = pile_b->next;
 		}
 		else
 			printf("| |\n");
 		x++;
 	}
+	printf("\n");
 }
 int ft_sqrt(int x)
 {
@@ -56,20 +54,22 @@ int	main(int ac, char **av)
 {
 	t_list	*pile_a;
 	t_list	*pile_b;
-	int		*count;
-	int		x;
+	int		count;
 	
 	pile_b = NULL;
 	pile_a = NULL;
+	count = 0;
 	if (ac > 1)
 	{
 		if (input_check(ac, av))
 			pile_a = (t_list *)init(ac, av);
 		else
+		{
+			printf("erreur de saisi");
 			return (0);
-		x = 0;
-		//print_pile(pile_a, pile_b);
-		split_by_two(&pile_a, &pile_b, ft_sqrt(ft_lstsize(pile_a)));
+		}
+		print_pile(pile_a, pile_b);
+		//split_by_two(&pile_a, &pile_b, ft_sqrt(ft_lstsize(pile_a)));
 		/*pile_a = rotate(pile_a);
 		print_pile(pile_a, pile_b);
 		printf("rotate\n");
@@ -98,9 +98,11 @@ int	main(int ac, char **av)
 		print_pile(pile_a, pile_b);
 		printf("ss\n");
 		ss(pile_b, pile_a);*/
-		tri(pile_a, pile_b, count);
+	//	while (!is_sort(pile_a))	
+	//	tri2(&pile_a, &pile_b, &count);
+		tri(&pile_a, &pile_b, &count);
 		print_pile(pile_a, pile_b);
 		//printf("%i\n", is_sort(pile_a));
-}
+	}
 	return (0);
 }
