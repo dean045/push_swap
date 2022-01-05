@@ -12,7 +12,7 @@
 
 #include"includes/push_swap.h"
 
-void	swap(t_list *pile_x)
+void	swap(t_list *pile_x, char c)
 {
 	int	tmp;
 
@@ -21,11 +21,18 @@ void	swap(t_list *pile_x)
 		tmp = pile_x->content;
 		pile_x->content = pile_x->next->content;
 		pile_x->next->content = tmp;
+		if (c)
+		{
+			write(1,"s", 1);
+			write(1, &c, 1);
+			write(1, "\n", 1);
+		}
 	}
 }
 
 void	ss(t_list *pile_a, t_list *pile_b)
 {
-	swap(pile_a);
-	swap(pile_b);
+	swap(pile_a, 0);
+	swap(pile_b, 0);
+	write(1,"ss\n", 3);
 }

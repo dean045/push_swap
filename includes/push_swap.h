@@ -15,26 +15,27 @@
 
 # include "../libft.h"
 
-typedef struct	s_elem
+typedef struct	s_data
 {
-	int				*content;
-	struct s_elem	*next;
-}				t_elem;
+	int				min;
+	int				mid;
+	int				max;
+}				t_data;
 
 int		input_check(int ac, char **av);
 void	print_pile(t_list *pile_a, t_list *pile_b);
 int		is_sort(t_list *pile_x);
 t_list	*init(int ac, char **av);
 void	tri(t_list **pile_a, t_list **pile_b, int *count);
-void	*rrotate(t_list **pile_x);
+void	*rrotate(t_list **pile_x, char c);
 void	rrr(t_list **pile_a, t_list **pile_b);
 void	rr(t_list **pile_a, t_list **pile_b);
-void	*rotate(t_list **pile_x);
-void	push(t_list **pile_a, t_list **pile_b);
+void	*rotate(t_list **pile_x, char c);
+void	push(t_list **pile_a, t_list **pile_b, char c);
 t_list	split_by_two(t_list **pile_a, t_list **pile_b, int x);
 int		get_max(t_list *pile_x);
 int		get_min(t_list *pile_x);
-void	swap(t_list *pile_x);
+void	swap(t_list *pile_x, char c);
 void	ss(t_list *plie_a, t_list *pile_b);
 int		ft_sqrt(int x);
 void	tri2(t_list **pile_a, t_list **pile_b, int *count);

@@ -12,7 +12,7 @@
 
 #include"includes/push_swap.h"
 
-void	push(t_list **pile_a, t_list **pile_b)
+void	push(t_list **pile_a, t_list **pile_b, char c)
 {
 	t_list	*tmp;
 
@@ -24,6 +24,9 @@ void	push(t_list **pile_a, t_list **pile_b)
 		*pile_b = (*pile_b)->next;
 		tmp->next = *pile_a;
 		*pile_a = tmp;
+		write(1,"p", 1);
+		write(1, &c, 1);
+		write(1, "\n", 1);
 	}
 	tmp = *pile_b;
 	if (tmp == NULL)

@@ -50,10 +50,35 @@ int ft_sqrt(int x)
 	return (tmp);
 }
 
+t_data	*get_data(t_list *pile_a)
+{
+	int		size;
+	int		i;
+	t_data	*data;
+
+	if (!pile_a)
+		return (NULL);
+	data= malloc(sizeof(t_data *));
+	i = 0;
+	size = ft_lstsize(pile_a);
+	while(i < size)
+	{
+		if (i == (size / 4))
+			data->min = pile_a->content;
+		else if (i == (size / 2))
+			data->mid = pile_a->content;
+		else if (i == ((size / 4) * 3))
+			data->max = pile_a->content;
+		pile_a = pile_a->next; 
+	}
+	return (data);
+}
+
 int	main(int ac, char **av)
 {
 	t_list	*pile_a;
 	t_list	*pile_b;
+	t_data	*data;
 	int		count;
 	
 	pile_b = NULL;
@@ -68,40 +93,34 @@ int	main(int ac, char **av)
 			printf("erreur de saisi");
 			return (0);
 		}
+		data = get_data(pile_a);
+		printf("p1 = %i // p2 = %i // p3 = %i \n", data->min, data->mid, data->max);
 		print_pile(pile_a, pile_b);
 		//split_by_two(&pile_a, &pile_b, ft_sqrt(ft_lstsize(pile_a)));
 		/*pile_a = rotate(pile_a);
-		print_pile(pile_a, pile_b);
-		printf("rotate\n");
+		print_pile(pile_a, pile_b);	
 		pile_a = rrotate(pile_a);
 		print_pile(pile_a, pile_b);
-		printf("rrotate \n");
 		print_pile(pile_a, pile_b);
-		printf("push b\n");
 		pile_a = push(&pile_b, pile_a);
 		print_pile(pile_a, pile_b);
-		printf("push a\n");
 		print_pile(pile_a, pile_b);	
 		pile_b = push(&pile_a, pile_b);
-		printf("swap a\n");
 		swap(pile_a);
 		print_pile(pile_a, pile_b);
-		printf("pb pb\n");
 		pile_a = push(&pile_b, pile_a);
 		pile_a = push(&pile_b, pile_a);
 		print_pile(pile_a, pile_b);
-		printf("rr\n");
 		rr(&pile_b, &pile_a);
 		print_pile(pile_a, pile_b);
-		printf("rrr\n");
 		rrr(&pile_b, &pile_a);
 		print_pile(pile_a, pile_b);
-		printf("ss\n");
 		ss(pile_b, pile_a);*/
 	//	while (!is_sort(pile_a))	
 	//	tri2(&pile_a, &pile_b, &count);
-		tri(&pile_a, &pile_b, &count);
-		print_pile(pile_a, pile_b);
+		//sort(&pile_a, &pile_b, &count);
+		//tri(&pile_a, &pile_b, &count);
+		//print_pile(pile_a, pile_b);
 		//printf("%i\n", is_sort(pile_a));
 	}
 	return (0);

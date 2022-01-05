@@ -1,4 +1,4 @@
-00000/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tri.c                                              :+:      :+:    :+:   */
@@ -35,7 +35,7 @@ int get_mediane(t_list *pile_a)
 	return (get_min(pile_a) + ((get_max(pile_a) - get_min(pile_a)) / 2));
 }
 
-void put_val_top(t_list **pile_a, int val, int *count)
+/*void put_val_top(t_list **pile_a, int val, int *count)
 {
 	int		size;
 	int		pos;
@@ -49,13 +49,28 @@ void put_val_top(t_list **pile_a, int val, int *count)
 	while (pile->content != val)
 	{
 		if (pos >= size / 2)
-			pile = rrotate(&pile);
+			pile = rrotate(&pile, 'a');
 		else
-			pile = rotate(&pile);
+			pile = rotate(&pile, 'a');
 		(*count)++;
 		printf("%i\n", *count);
 	}
 	*pile_a = pile;
+}*/
+void sort_suite(t_list **pile_a, t_list **pile_b, int *count, int pivot)
+{
+	int	size;
+	int min;
+
+	size = ft_lstsize(*pile_a);
+	min = get_min(*pile_a);
+	while (*pile_b)
+	{
+		if ((*pile_b)->content > (*pile_a)->content)
+		{
+
+		}
+	}
 }
 
 void sort(t_list **pile_a, t_list **pile_b, int *count, int pivot)
@@ -63,19 +78,30 @@ void sort(t_list **pile_a, t_list **pile_b, int *count, int pivot)
 	int	i;
 	int	size;
 	int min;
-	int max;
 
 	size = ft_lstsize(*pile_a);
-	max = get_max(*pile_a);
-	
+	min = get_min(*pile_a);
 	i = 0;
-
-	while (i < size)
+	while (i < size - 2)
 	{
-		if ((*pile_a)->content != )
+		if ((*pile_a)->content != pivot && (*pile_a)->content != min)
+		{
+			push(pile_b, pile_a, 'b');
+			if ((*pile_b)->content > pivot)
+			{
+				*count++;
+				rotate(pile_b, 'b');
+			}
+		}
+		else
+			rotate(pile_a, 'a');
+		*count++;
+		i++;
 	}
+	//sort pour 3 element
+	//sort suite
 }
-
+/*
 void	tri(t_list **pile_a, t_list **pile_b, int *count)
 {
 	int	max;
@@ -84,17 +110,17 @@ void	tri(t_list **pile_a, t_list **pile_b, int *count)
 	while (*pile_a && (!*pile_b || max != (*pile_b)->content))
 	{
 		put_val_top(pile_a, get_min(*pile_a), count);
-		push(pile_b, pile_a);
+		push(pile_b, pile_a, 'b');
 		(*count)++;
 		printf("%i\n", *count);
 		print_pile(*pile_a, *pile_b);
 	}
 	while (*pile_b)
 	{
-		push(pile_a, pile_b);
+		push(pile_a, pile_b, 'a');
 		(*count)++;
 		printf("%i\n", *count);
 		print_pile(*pile_a, *pile_b);
 	}
-}
+}*/
 

@@ -57,7 +57,7 @@ t_list	split_by_two(t_list **pile_a, t_list **pile_b, int x)
 {
 	while (x)
 	{
-		push(pile_b, pile_a);
+		push(pile_b, pile_a, 'b');
 		x--;
 	}
 }
@@ -74,7 +74,6 @@ t_list	*init(int ac, char **av)
 	p = ft_atoi(av[1]);
 	pile_tmp = ft_lstnew(&p);
 	x = 2;
-	//printf("atoi %i \nac %i \n", ft_atoi(av[11]), ac);
 	while (x < ac)
 	{
 		p = ft_atoi(av[x]);
@@ -82,11 +81,5 @@ t_list	*init(int ac, char **av)
 		ft_lstadd_back(&pile_tmp, tmp);
 		x++;
 	}
-	printf("%i\n",x);
-	/*while (pile_tmp->content)
-	{
-		printf("%i ", pile_tmp->content);
-		pile_tmp = pile_tmp->next;
-	}*/
 	return (pile_tmp);
 }
