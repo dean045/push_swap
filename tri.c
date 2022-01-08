@@ -75,67 +75,31 @@ void sort3(t_list **pile_a, t_data data)
 void sort_suite(t_list **pile_a, t_list **pile_b, t_data data)
 {
 	int size;
+	int x;
 	int rot;
-	int i = -1;
+	int i = 0;
 
-	rot = 0;
+	x = 0;
 	size = ft_lstsize(*pile_a);
-
-	while (++i < data.nb[3] - data.nb[2] - 1)
+	while (++x <= 4)
 	{
-		//printf("%i\n", data.tab[data.nb[3] - i - 1]);
-		//print_pile(*pile_a, *pile_b);
-		rot = put_val_top(pile_b, data.tab[data.nb[3] - i - 1]);
-		push(pile_a, pile_b, 'a');
-		if ((*pile_a)->content > (*pile_a)->next->content)
-				swap(*pile_a, 'a');
-	}
-	rrotate(pile_a, 'a');
-	//printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
-	
-	while (i < data.nb[3] - data.nb[1] - 2)
-	{
-
-			//printf("%i\n", data.tab[data.nb[3] - i - 2]);
-			//print_pile(*pile_a, *pile_b);
-			rot = put_val_top(pile_b, data.tab[data.nb[3] - i - 2]);
-			push(pile_a, pile_b, 'a');
+		while (x == 4 || (i < data.nb[3] - data.nb[3 - x] - x))
+		{
+			
+			rot = put_val_top(pile_b, data.tab[data.nb[3] - i - x]);
+			if ((*pile_b))
+				push(pile_a, pile_b, 'a');
+			else
+				break;
 			if ((*pile_a)->content > (*pile_a)->next->content)
-				swap(*pile_a, 'a');
-		i++;
-		////print_pile(*pile_a, *pile_b);
+					swap(*pile_a, 'a');
+			i++;
+		}
+		if (x < 4)
+			rrotate(pile_a, 'a');
 	}
-	//rrotate(pile_a, 'a');
 
-	while (i < data.nb[3] - data.nb[0] - 3)
-	{
 
-			//printf("%i\n", (*pile_b)->content);
-			//printf("%i\n", data.tab[data.nb[3] - i - 3]);
-			//print_pile(*pile_a, *pile_b);
-			rot = put_val_top(pile_b, data.tab[data.nb[3] - i - 3]);
-			push(pile_a, pile_b, 'a');
-			if ((*pile_a)->content > (*pile_a)->next->content)
-				swap(*pile_a, 'a');
-
-		i++;
-			////print_pile(*pile_a, *pile_b);
-	}
-	rrotate(pile_a, 'a');
-	while (*pile_b)
-	{
-		//printf("%i\n", data.tab[data.nb[3] - i - 4]);
-		//
-		rot = put_val_top(pile_b, data.tab[data.nb[3] - i - 4]);
-		push(pile_a, pile_b, 'a');
-		/*if ( (*pile_a)->content > (*pile_a)->next->content)
-			swap(*pile_a, 'a');**/
-		i++;
-	}
-	//print_pile(*pile_a, *pile_b);
-	/*if (!is_sort(*pile_a))
-	sort(pile_a, pile_b, data);*/
-	////printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
 }
 
 void sort(t_list **pile_a, t_list **pile_b, t_data data)
