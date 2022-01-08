@@ -24,11 +24,4 @@ void	push(t_list **pile_a, t_list **pile_b, char c)
 		write(1,"p", 1);
 		write(1, &c, 1);
 		write(1, "\n", 1);
-	tmp = *pile_b;
-	if (tmp == NULL)
-	{
-		free(*pile_b);
-		*pile_b = (NULL);
-		return ;
-	}
 }

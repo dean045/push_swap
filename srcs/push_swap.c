@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 		x = 0;
 		while (pile_a)
 		{
-			//printf("elem %i = %i\n", x, *(pile_a->content));
+			////printf("elem %i = %i\n", x, *(pile_a->content));
 			pile_a = pile_a->next;
 		}
 	}

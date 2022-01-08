@@ -100,14 +100,21 @@ int	main(int ac, char **av)
 		size = ft_lstsize(pile_a);
 		data.tab = put_in_tab(pile_a, size);
 		data = get_data(data.tab, size);
+		//int i = -1;
+		//while (++i < size)
+		//printf("tab[%i] = %i\n", i , data.tab[i]);
+		//printf("nb[0] = %i nb[1] = %i nb[2] = %i nb[3] = %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
+		//printf("%i %i %i\n", data.value[0], data.value[1], data.value[2]);
 	//while(!is_sort(pile_a))
 		sort(&pile_a, &pile_b, data);
-	//		printf("%i %i %i\n", data.value[2], data.value[1], data.value[0]);
-	//printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
+		//print_pile(pile_a, pile_b);
+		//printf("%i %i %i\n", data.value[0], data.value[1], data.value[2]);
+		
+	////printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
 		//tri(&pile_a, &pile_b, &count);
 		//push(&pile_b, &pile_a, 'b');
-		print_pile(pile_a, pile_b);
-		//printf("%i\n", is_sort(pile_a));
+		//
+		////printf("%i\n", is_sort(pile_a));
 	}
 	return (0);
 }

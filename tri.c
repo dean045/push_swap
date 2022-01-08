@@ -43,7 +43,7 @@ int put_val_top(t_list **pile_a, int val)
 	rot = 0;
 	while ((*pile_a)->content != val)
 	{
-		if (pos >= (size / 2) - 1)
+		if (pos >= (size/ 2))
 		{
 			rrotate(pile_a, 'a');
 			rot--;
@@ -76,84 +76,66 @@ void sort_suite(t_list **pile_a, t_list **pile_b, t_data data)
 {
 	int size;
 	int rot;
-	int i = 0;
+	int i = -1;
 
 	rot = 0;
 	size = ft_lstsize(*pile_a);
 
-	while (i < data.nb[3] - data.nb[2] - 1)
+	while (++i < data.nb[3] - data.nb[2] - 1)
 	{
-		printf("%i\n", data.tab[data.nb[2] + i + 1]);
-		//put_val_top(pile_b, data.tab[data.nb[2] + i + 1]);
-		if ((*pile_b)->content > data.value[2])
-		{
-			if ((*pile_b)->content < (*pile_b)->next->content)
-					swap(*pile_b, 'b');
-			push(pile_a, pile_b, 'a');
-			if ((*pile_a)->content > (*pile_a)->next->content)
-					swap(*pile_a, 'a');
-			i++;
-		}
-		else
-			rotate(pile_b, 'b');
-			//printf("test\n");
-			//print_pile(*pile_a, *pile_b);
+		//printf("%i\n", data.tab[data.nb[3] - i - 1]);
+		//print_pile(*pile_a, *pile_b);
+		rot = put_val_top(pile_b, data.tab[data.nb[3] - i - 1]);
+		push(pile_a, pile_b, 'a');
+		if ((*pile_a)->content > (*pile_a)->next->content)
+				swap(*pile_a, 'a');
 	}
 	rrotate(pile_a, 'a');
 	//printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
 	
 	while (i < data.nb[3] - data.nb[1] - 2)
 	{
-		if ((*pile_b)->content < data.value[2] && (*pile_b)->content > data.value[1])
-		{
-			if ((*pile_b)->content < (*pile_b)->next->content)
-					swap(*pile_b, 'b');
+
+			//printf("%i\n", data.tab[data.nb[3] - i - 2]);
+			//print_pile(*pile_a, *pile_b);
+			rot = put_val_top(pile_b, data.tab[data.nb[3] - i - 2]);
 			push(pile_a, pile_b, 'a');
 			if ((*pile_a)->content > (*pile_a)->next->content)
-					swap(*pile_a, 'a');
-			i++;
-		}
-		else
-			rotate(pile_b, 'b');
-			//print_pile(*pile_a, *pile_b);
+				swap(*pile_a, 'a');
+		i++;
+		////print_pile(*pile_a, *pile_b);
 	}
-	rrotate(pile_a, 'a');
+	//rrotate(pile_a, 'a');
 
 	while (i < data.nb[3] - data.nb[0] - 3)
 	{
-		if ((*pile_b)->content < data.value[1] && (*pile_b)->content > data.value[0])
-		{
-			if ((*pile_b)->content < (*pile_b)->next->content)
-					swap(*pile_b, 'b');
+
+			//printf("%i\n", (*pile_b)->content);
+			//printf("%i\n", data.tab[data.nb[3] - i - 3]);
+			//print_pile(*pile_a, *pile_b);
+			rot = put_val_top(pile_b, data.tab[data.nb[3] - i - 3]);
 			push(pile_a, pile_b, 'a');
 			if ((*pile_a)->content > (*pile_a)->next->content)
-					swap(*pile_a, 'a');
-			i++;
-		}
-		else
-			rotate(pile_b, 'b');
-			//print_pile(*pile_a, *pile_b);
+				swap(*pile_a, 'a');
+
+		i++;
+			////print_pile(*pile_a, *pile_b);
 	}
-	//rrotate(pile_a, 'a');
-	
+	rrotate(pile_a, 'a');
 	while (*pile_b)
 	{
-		if ((*pile_b)->content < data.value[0])
-		{
-			if ((*pile_b)->next &&(*pile_b)->content < (*pile_b)->next->content)
-					swap(*pile_b, 'b');
-			push(pile_a, pile_b, 'a');
-			if ( (*pile_a)->content > (*pile_a)->next->content)
-					swap(*pile_a, 'a');
-			i++;
-		}
-		else
-			rotate(pile_b, 'b');
-		//print_pile(*pile_a, *pile_b);
+		//printf("%i\n", data.tab[data.nb[3] - i - 4]);
+		//
+		rot = put_val_top(pile_b, data.tab[data.nb[3] - i - 4]);
+		push(pile_a, pile_b, 'a');
+		/*if ( (*pile_a)->content > (*pile_a)->next->content)
+			swap(*pile_a, 'a');**/
+		i++;
 	}
-	if (!is_sort(*pile_a))
-	sort(pile_a, pile_b, data);
-	//printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
+	//print_pile(*pile_a, *pile_b);
+	/*if (!is_sort(*pile_a))
+	sort(pile_a, pile_b, data);*/
+	////printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
 }
 
 void sort(t_list **pile_a, t_list **pile_b, t_data data)
@@ -168,18 +150,18 @@ void sort(t_list **pile_a, t_list **pile_b, t_data data)
 		while (i < data.nb[x] - x)
 		{
 			//if (x < 3)
-			//printf("value = %i // i = %i // x = %i / nb =  %i\n", data.value[x] , i, x, data.nb[x] );
+			////printf("value = %i // i = %i // x = %i / nb =  %i\n", data.value[x] , i, x, data.nb[x] );
 			if (((x == 3) || (*pile_a)->content < data.value[x]) && (*pile_a)->content != data.value[0] && (*pile_a)->content != data.value[1] && (*pile_a)->content != data.value[2])
 			{
 				i++;
 				push(pile_b, pile_a, 'b');
-				//printf("test\n");
+				////printf("test\n");
 				if ((*pile_b)->next && ((*pile_b)->content < (*pile_b)->next->content))
 					swap(*pile_b, 'b');
 			}
 			else
 				rotate(pile_a, 'a');
-			//print_pile(*pile_a, *pile_b);
+			////print_pile(*pile_a, *pile_b);
 		}
 	}
 	sort3(pile_a, data);
