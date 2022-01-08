@@ -20,7 +20,7 @@ int	*sort_tab(int *tab, int size)
 
 	i = 0;
 	tmp = 0;
-	while (i <= (size / 2))
+	while (i < size)
 	{
 		j = i + 1;
 		while (j < size)
@@ -43,7 +43,7 @@ int	*put_in_tab(t_list *pile_a, int size)
 	int i;
 	int	*tab;
 
-	tab = malloc(sizeof(int) *size);
+	tab = malloc(sizeof(int) * size);
 	i = -1;
 	if (!tab)
 		return (NULL);

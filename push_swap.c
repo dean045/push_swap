@@ -50,29 +50,31 @@ int ft_sqrt(int x)
 	return (tmp);
 }
 
-t_data	*get_data(int *tab, int size)
+t_data	get_data(int *tab, int size)
 {
 	int		i;
-	t_data	*data;
+	t_data	data;
 
-	data= malloc(sizeof(t_data *));
-	if (!data)
-		return (NULL);
 	i = -1;
+	data.tab = tab;
+	data.nb[3] = size;
 	while(++i < size)
 	{
 		if (i == (size / 4))
 		{
-			data->min = tab[i];
-			data->nb_min = i;
+			data.value[0] = tab[i];
+			data.nb[0] = i;
 		}
 		else if (i == (size / 2))
 		{
-			data->mid = tab[i];
-			data->nb_mid = i;
+			data.value[1] = tab[i];
+			data.nb[1] = i;
 		}
-		else if (i == ((size * 3) / 4))
-			data->max = tab[i]; 
+		else if (i == (size / 2) + (size / 4))
+		{
+			data.value[2] = tab[i];
+			data.nb[2] = i;
+		}
 	}
 	return (data);
 }
@@ -81,14 +83,11 @@ int	main(int ac, char **av)
 {
 	t_list	*pile_a;
 	t_list	*pile_b;
-	t_data	*data;
-	int		*tab;
+	t_data	data;
 	int		size;
-	int		count;
 	
 	pile_b = NULL;
 	pile_a = NULL;
-	count = 0;
 	if (ac > 1)
 	{
 		if (input_check(ac, av))
@@ -99,37 +98,15 @@ int	main(int ac, char **av)
 			return (0);
 		}
 		size = ft_lstsize(pile_a);
-		tab = put_in_tab(pile_a, size);
-		data = get_data(tab, size);
-		//printf("p1 = %i // p2 = %i // p3 = %i \n", data->min, data->mid, data->max);
-		//print_pile(pile_a, pile_b);
-		//split_by_two(&pile_a, &pile_b, ft_sqrt(ft_lstsize(pile_a)));
-		/*pile_a = rotate(pile_a);
-		//print_pile(pile_a, pile_b);	
-		pile_a = rrotate(pile_a);
-		//print_pile(pile_a, pile_b);
-		//print_pile(pile_a, pile_b);
-		push(pile_b, pile_a);
-		//print_pile(pile_a, pile_b);
-		//print_pile(pile_a, pile_b);	
-		pile_b = push(&pile_a, pile_b);
-		swap(pile_a);
-		//print_pile(pile_a, pile_b);
-		push(pile_b, pile_a);
-		push(pile_b, pile_a);
-		//print_pile(pile_a, pile_b);
-		rr(&pile_b, &pile_a);
-		//print_pile(pile_a, pile_b);
-		rrr(&pile_b, &pile_a);
-		//print_pile(pile_a, pile_b);
-		ss(pile_b, pile_a);*/
-	//	while (!is_sort(pile_a))	
-	//	tri2(&pile_a, &pile_b, &count);
-	while(!is_sort(pile_a))
-		sort(&pile_a, &pile_b, &count, data);
+		data.tab = put_in_tab(pile_a, size);
+		data = get_data(data.tab, size);
+	//while(!is_sort(pile_a))
+		sort(&pile_a, &pile_b, data);
+	//		printf("%i %i %i\n", data.value[2], data.value[1], data.value[0]);
+	//printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
 		//tri(&pile_a, &pile_b, &count);
 		//push(&pile_b, &pile_a, 'b');
-		//print_pile(pile_a, pile_b);
+		print_pile(pile_a, pile_b);
 		//printf("%i\n", is_sort(pile_a));
 	}
 	return (0);

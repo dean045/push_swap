@@ -17,18 +17,16 @@
 
 typedef struct	s_data
 {
-	int				min;
-	int				nb_min;
-	int				mid;
-	int				nb_mid;
-	int				max;
+	int nb[5];
+	int	value[3];
+	int	*tab;
 }				t_data;
 
 int		input_check(int ac, char **av);
 void	print_pile(t_list *pile_a, t_list *pile_b);
 int		is_sort(t_list *pile_x);
 t_list	*init(int ac, char **av);
-void	tri(t_list **pile_a, t_list **pile_b, int *count);
+void	tri(t_list **pile_a, t_list **pile_b);
 void	*rrotate(t_list **pile_x, char c);
 void	rrr(t_list **pile_a, t_list **pile_b);
 void	rr(t_list **pile_a, t_list **pile_b);
@@ -40,10 +38,10 @@ int		get_min(t_list *pile_x);
 void	swap(t_list *pile_x, char c);
 void	ss(t_list *plie_a, t_list *pile_b);
 int		ft_sqrt(int x);
-void	tri2(t_list **pile_a, t_list **pile_b, int *count);
+void	tri2(t_list **pile_a, t_list **pile_b);
 int		get_mediane(t_list *pile_a);
-void	sort3(t_list **pile_a, int *count, t_data *data);
-void    sort(t_list **pile_a, t_list **pile_b, int *count, t_data *data);
+void	sort3(t_list **pile_a, t_data data);
+void    sort(t_list **pile_a, t_list **pile_b, t_data data);
 void	reset_rot(int rot, t_list **pile_a);
 int		*put_in_tab(t_list *pile_a, int size);
 

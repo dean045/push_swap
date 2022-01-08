@@ -30,7 +30,7 @@ int get_pos(t_list *pile_a, int val)
 	return (x);
 }
 
-int put_val_top(t_list **pile_a, int val, int *count)
+int put_val_top(t_list **pile_a, int val)
 {
 	int size;
 	int pos;
@@ -53,124 +53,137 @@ int put_val_top(t_list **pile_a, int val, int *count)
 			rotate(pile_a, 'a');
 			rot++;
 		}
-		(*count)++;
-		//printf("teset   %i\n", *count);
 	}
 	return (rot);
 }
 
-void sort3(t_list **pile_a, int *count, t_data *data)
+void sort3(t_list **pile_a, t_data data)
 {
 	while (!is_sort(*pile_a))
 	{
-		if ((*pile_a)->content == data->max && (*pile_a)->next->content == data->min)
+		if ((*pile_a)->content == data.value[2] && (*pile_a)->next->content == data.value[0])
 			(*pile_a) = rotate(pile_a, 'a');
-		else if ((*pile_a)->content == data->mid && (*pile_a)->next->content == data->max)
+		else if ((*pile_a)->content == data.value[1] && (*pile_a)->next->content == data.value[2])
 			(*pile_a) = rrotate(pile_a, 'a');
-		else if (ft_lstlast(*pile_a)->content == data->max || (*pile_a)->content == data->min || (*pile_a)->next->content == data->mid)
+		else if (ft_lstlast(*pile_a)->content == data.value[2] || (*pile_a)->content == data.value[0] || (*pile_a)->next->content == data.value[1])
 		{
 			swap(*pile_a, 'a');
 		}
-		(*count)++;
 	}
 }
 
-void sort_suite(t_list **pile_a, t_list **pile_b, int *count, t_data *data)
+void sort_suite(t_list **pile_a, t_list **pile_b, t_data data)
 {
 	int size;
 	int rot;
+	int i = 0;
 
 	rot = 0;
 	size = ft_lstsize(*pile_a);
+
+	while (i < data.nb[3] - data.nb[2] - 1)
+	{
+		printf("%i\n", data.tab[data.nb[2] + i + 1]);
+		//put_val_top(pile_b, data.tab[data.nb[2] + i + 1]);
+		if ((*pile_b)->content > data.value[2])
+		{
+			if ((*pile_b)->content < (*pile_b)->next->content)
+					swap(*pile_b, 'b');
+			push(pile_a, pile_b, 'a');
+			if ((*pile_a)->content > (*pile_a)->next->content)
+					swap(*pile_a, 'a');
+			i++;
+		}
+		else
+			rotate(pile_b, 'b');
+			//printf("test\n");
+			//print_pile(*pile_a, *pile_b);
+	}
+	rrotate(pile_a, 'a');
+	//printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
+	
+	while (i < data.nb[3] - data.nb[1] - 2)
+	{
+		if ((*pile_b)->content < data.value[2] && (*pile_b)->content > data.value[1])
+		{
+			if ((*pile_b)->content < (*pile_b)->next->content)
+					swap(*pile_b, 'b');
+			push(pile_a, pile_b, 'a');
+			if ((*pile_a)->content > (*pile_a)->next->content)
+					swap(*pile_a, 'a');
+			i++;
+		}
+		else
+			rotate(pile_b, 'b');
+			//print_pile(*pile_a, *pile_b);
+	}
+	rrotate(pile_a, 'a');
+
+	while (i < data.nb[3] - data.nb[0] - 3)
+	{
+		if ((*pile_b)->content < data.value[1] && (*pile_b)->content > data.value[0])
+		{
+			if ((*pile_b)->content < (*pile_b)->next->content)
+					swap(*pile_b, 'b');
+			push(pile_a, pile_b, 'a');
+			if ((*pile_a)->content > (*pile_a)->next->content)
+					swap(*pile_a, 'a');
+			i++;
+		}
+		else
+			rotate(pile_b, 'b');
+			//print_pile(*pile_a, *pile_b);
+	}
+	//rrotate(pile_a, 'a');
+	
 	while (*pile_b)
 	{
-		if ((*pile_b)->content > data->max)
+		if ((*pile_b)->content < data.value[0])
 		{
-			//rot = put_val_top(pile_a, data->max, count);
-			//rot++;
-			//rrotate(pile_a, 'a');
+			if ((*pile_b)->next &&(*pile_b)->content < (*pile_b)->next->content)
+					swap(*pile_b, 'b');
 			push(pile_a, pile_b, 'a');
-			if ((*pile_a)->content > ft_lstlast(*pile_a)->content)
-			{
-				rrotate(pile_a, 'a');
-				rot++;
-				swap(*pile_a, 'a');
-			}
-			//reset_rot(rot, pile_a);
-		}
-
-		else if ((*pile_b)->content <= data->max)
-		{
-			if ((*pile_b)->content <= data->mid)
-			{
-				if ((*pile_b)->content <= data->min)
-				{
-					push(pile_a, pile_b, 'a');
-					if ((*pile_a)->content > (*pile_a)->next->content)
-						swap(*pile_a, 'a');
-				}
-				else
-				{
-					//rot = put_val_top(pile_a, data->mid, count);
-					push(pile_a, pile_b, 'a');
-					if ((*pile_a)->content > (*pile_a)->next->content)
-						swap(*pile_a, 'a');
-					//reset_rot(rot, pile_a);
-				}
-			}
-			else
-			{
-				//rot = put_val_top(pile_a, data->max, count);
-				push(pile_a, pile_b, 'a');
-				if ((*pile_a)->content > (*pile_a)->next->content)
+			if ( (*pile_a)->content > (*pile_a)->next->content)
 					swap(*pile_a, 'a');
-				//reset_rot(rot, pile_a);
-			}
+			i++;
 		}
+		else
+			rotate(pile_b, 'b');
 		//print_pile(*pile_a, *pile_b);
 	}
+	if (!is_sort(*pile_a))
+	sort(pile_a, pile_b, data);
+	//printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
 }
 
-void sort(t_list **pile_a, t_list **pile_b, int *count, t_data *data)
+void sort(t_list **pile_a, t_list **pile_b, t_data data)
 {
 	int x;
 	int	i;
-	int nb[4];
-	int	value[3];
 
 	x = -1;
 	i = 0;
-	nb[0] = data->nb_min;
-	nb[1] = data->nb_mid;
-	nb[2] = data->nb_mid + data->nb_min;
-	nb[3] = ft_lstsize(*pile_a);
-	value[0] = data->min;
-	value[1] = data->mid;
-	value[2] = data->max;
 	while (++x < 4)
 	{
-		while (i < nb[x])
+		while (i < data.nb[x] - x)
 		{
-			printf("i %i / x %i / nb %i",i, x, nb[x] );
-			if (((x == 3) || (*pile_a)->content <= value[x]) )
+			//if (x < 3)
+			//printf("value = %i // i = %i // x = %i / nb =  %i\n", data.value[x] , i, x, data.nb[x] );
+			if (((x == 3) || (*pile_a)->content < data.value[x]) && (*pile_a)->content != data.value[0] && (*pile_a)->content != data.value[1] && (*pile_a)->content != data.value[2])
 			{
 				i++;
 				push(pile_b, pile_a, 'b');
 				//printf("test\n");
 				if ((*pile_b)->next && ((*pile_b)->content < (*pile_b)->next->content))
-				{
-					*count++;
 					swap(*pile_b, 'b');
-				}
 			}
 			else
 				rotate(pile_a, 'a');
 			//print_pile(*pile_a, *pile_b);
-			*count++;
 		}
 	}
-	//sort3(pile_a, count, data);
-	//sort_suite(pile_a, pile_b, count, data);
-	/*if (!is_sort(*pile_a))
-		sort(pile_a, pile_b, count, data);*/
+	sort3(pile_a, data);
+	rotate(pile_a, 'a');
+	rotate(pile_a, 'a');
+	sort_suite(pile_a, pile_b, data);
 }
