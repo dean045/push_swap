@@ -18,7 +18,9 @@
 typedef struct	s_data
 {
 	int				min;
+	int				nb_min;
 	int				mid;
+	int				nb_mid;
 	int				max;
 }				t_data;
 
@@ -40,6 +42,10 @@ void	ss(t_list *plie_a, t_list *pile_b);
 int		ft_sqrt(int x);
 void	tri2(t_list **pile_a, t_list **pile_b, int *count);
 int		get_mediane(t_list *pile_a);
+void	sort3(t_list **pile_a, int *count, t_data *data);
+void    sort(t_list **pile_a, t_list **pile_b, int *count, t_data *data);
+void	reset_rot(int rot, t_list **pile_a);
+int		*put_in_tab(t_list *pile_a, int size);
 
 #endif
 

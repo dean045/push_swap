@@ -16,10 +16,7 @@ void	push(t_list **pile_a, t_list **pile_b, char c)
 {
 	t_list	*tmp;
 
-	if (!*pile_b)
-		return ;
-	if (*pile_b && (*pile_b)->content)
-	{
+
 		tmp = *pile_b;
 		*pile_b = (*pile_b)->next;
 		tmp->next = *pile_a;
@@ -27,7 +24,6 @@ void	push(t_list **pile_a, t_list **pile_b, char c)
 		write(1,"p", 1);
 		write(1, &c, 1);
 		write(1, "\n", 1);
-	}
 	tmp = *pile_b;
 	if (tmp == NULL)
 	{

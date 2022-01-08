@@ -21,6 +21,7 @@ void	*rrotate(t_list **pile_x, char c)
 	while((*pile_x)->next != tmp)
 		*pile_x = (*pile_x)->next;
 	(*pile_x)->next = NULL;
+	*pile_x = tmp;
 	if (c)
 	{
 		write(1,"rr", 2);

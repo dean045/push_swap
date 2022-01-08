@@ -11,40 +11,48 @@
 /* ************************************************************************** */
 
 #include "includes/push_swap.h"
-int	get_max(t_list	*pile_x)
-{
-	int		result;
-	t_list	*tmp;
 
-	tmp = pile_x;
-	if (!pile_x)
-		return (0);
-	result = tmp->content;
-	while (tmp)
+int	*sort_tab(int *tab, int size)
+{
+	int	i;
+	int	j;
+	int tmp;
+
+	i = 0;
+	tmp = 0;
+	while (i <= (size / 2))
 	{
-		if (tmp->content > result)
-			result = tmp->content;
-		tmp = tmp->next;
+		j = i + 1;
+		while (j < size)
+		{
+			if (tab[i] > tab[j])
+			{
+				tmp = tab[i];
+				tab[i] = tab[j];
+				tab[j] = tmp;
+			}
+			j++;
+		}
+		i++;
 	}
-	return (result);
+	return (tab);
 }
 
-int	get_min(t_list	*pile_x)
+int	*put_in_tab(t_list *pile_a, int size)
 {
-	int		result;
-	t_list	*tmp;
+	int i;
+	int	*tab;
 
-	tmp = pile_x;
-	if (!pile_x || !(pile_x->content))
-		return (0);
-	result = tmp->content;
-	while (tmp)
+	tab = malloc(sizeof(int) *size);
+	i = -1;
+	if (!tab)
+		return (NULL);
+	while (++i < size)
 	{
-		if (tmp->content < result)
-			result = tmp->content;
-		tmp = tmp->next;
+		tab[i] = pile_a->content;
+		pile_a = pile_a->next;
 	}
-	return (result);
+	return (sort_tab(tab, size));
 }
 
 t_list	*ft_free(t_list *pile)

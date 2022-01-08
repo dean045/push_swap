@@ -50,26 +50,29 @@ int ft_sqrt(int x)
 	return (tmp);
 }
 
-t_data	*get_data(t_list *pile_a)
+t_data	*get_data(int *tab, int size)
 {
-	int		size;
 	int		i;
 	t_data	*data;
 
-	if (!pile_a)
-		return (NULL);
 	data= malloc(sizeof(t_data *));
-	i = 0;
-	size = ft_lstsize(pile_a);
-	while(i < size)
+	if (!data)
+		return (NULL);
+	i = -1;
+	while(++i < size)
 	{
 		if (i == (size / 4))
-			data->min = pile_a->content;
+		{
+			data->min = tab[i];
+			data->nb_min = i;
+		}
 		else if (i == (size / 2))
-			data->mid = pile_a->content;
-		else if (i == ((size / 4) * 3))
-			data->max = pile_a->content;
-		pile_a = pile_a->next; 
+		{
+			data->mid = tab[i];
+			data->nb_mid = i;
+		}
+		else if (i == ((size * 3) / 4))
+			data->max = tab[i]; 
 	}
 	return (data);
 }
@@ -79,6 +82,8 @@ int	main(int ac, char **av)
 	t_list	*pile_a;
 	t_list	*pile_b;
 	t_data	*data;
+	int		*tab;
+	int		size;
 	int		count;
 	
 	pile_b = NULL;
@@ -93,33 +98,37 @@ int	main(int ac, char **av)
 			printf("erreur de saisi");
 			return (0);
 		}
-		data = get_data(pile_a);
-		printf("p1 = %i // p2 = %i // p3 = %i \n", data->min, data->mid, data->max);
-		print_pile(pile_a, pile_b);
+		size = ft_lstsize(pile_a);
+		tab = put_in_tab(pile_a, size);
+		data = get_data(tab, size);
+		//printf("p1 = %i // p2 = %i // p3 = %i \n", data->min, data->mid, data->max);
+		//print_pile(pile_a, pile_b);
 		//split_by_two(&pile_a, &pile_b, ft_sqrt(ft_lstsize(pile_a)));
 		/*pile_a = rotate(pile_a);
-		print_pile(pile_a, pile_b);	
+		//print_pile(pile_a, pile_b);	
 		pile_a = rrotate(pile_a);
-		print_pile(pile_a, pile_b);
-		print_pile(pile_a, pile_b);
-		pile_a = push(&pile_b, pile_a);
-		print_pile(pile_a, pile_b);
-		print_pile(pile_a, pile_b);	
+		//print_pile(pile_a, pile_b);
+		//print_pile(pile_a, pile_b);
+		push(pile_b, pile_a);
+		//print_pile(pile_a, pile_b);
+		//print_pile(pile_a, pile_b);	
 		pile_b = push(&pile_a, pile_b);
 		swap(pile_a);
-		print_pile(pile_a, pile_b);
-		pile_a = push(&pile_b, pile_a);
-		pile_a = push(&pile_b, pile_a);
-		print_pile(pile_a, pile_b);
+		//print_pile(pile_a, pile_b);
+		push(pile_b, pile_a);
+		push(pile_b, pile_a);
+		//print_pile(pile_a, pile_b);
 		rr(&pile_b, &pile_a);
-		print_pile(pile_a, pile_b);
+		//print_pile(pile_a, pile_b);
 		rrr(&pile_b, &pile_a);
-		print_pile(pile_a, pile_b);
+		//print_pile(pile_a, pile_b);
 		ss(pile_b, pile_a);*/
 	//	while (!is_sort(pile_a))	
 	//	tri2(&pile_a, &pile_b, &count);
-		//sort(&pile_a, &pile_b, &count);
+	while(!is_sort(pile_a))
+		sort(&pile_a, &pile_b, &count, data);
 		//tri(&pile_a, &pile_b, &count);
+		//push(&pile_b, &pile_a, 'b');
 		//print_pile(pile_a, pile_b);
 		//printf("%i\n", is_sort(pile_a));
 	}
