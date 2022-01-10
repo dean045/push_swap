@@ -60,13 +60,13 @@ t_data	get_data(int *tab, int size, int nbPivot)
 	x = 0;
 	data.tab = tab;
 	data.nb[nbPivot] = size;
-	while(++i < size && x < nbPivot)
+	while(++i < size && x <= nbPivot)
 	{
 		if (i  && (i % (size / nbPivot)) == 0)
 		{
 			data.value[x] = tab[i];
 			data.nb[x] = i;
-			printf("data.nb[%i] = %i\n", x, data.nb[x]);
+			//printf("data.nb[%i] = %i\n", x, data.nb[x]);
 			x++;
 		}
 	}
@@ -94,8 +94,8 @@ int	main(int ac, char **av)
 		size = ft_lstsize(pile_a);
 		data.tab = put_in_tab(pile_a, size);
 		data = get_data(data.tab, size, 5);
-		for(int s = 0; s < 5; s++)
-			printf("data.value[%i] = %i \ndata.nb[%i] = %i \n",s, data.value[s], s, data.nb[s]);
+		/*for(int s = 0; s <= 5; s++)
+			printf("data.value[%i] = %i \ndata.nb[%i] = %i \n",s, data.value[s], s, data.nb[s]);*/
 		
 		if (size == 3)
 			sort3(&pile_a, data);

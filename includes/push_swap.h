@@ -18,7 +18,7 @@
 typedef struct	s_data
 {
 	int nb[7];
-	int	value[5];
+	int	value[6];
 	int	*tab;
 }				t_data;
 
