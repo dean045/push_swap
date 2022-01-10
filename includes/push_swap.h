@@ -17,12 +17,14 @@
 
 typedef struct	s_data
 {
-	int nb[5];
-	int	value[3];
+	int nb[7];
+	int	value[5];
 	int	*tab;
 }				t_data;
 
 int		input_check(int ac, char **av);
+int is_data(int val, int nbPivot, t_data data);
+void sort_five(t_list **pile_a, t_list **pile_b, t_data data);
 void	print_pile(t_list *pile_a, t_list *pile_b);
 int		is_sort(t_list *pile_x);
 t_list	*init(int ac, char **av);
@@ -41,9 +43,12 @@ int		ft_sqrt(int x);
 void	tri2(t_list **pile_a, t_list **pile_b);
 int		get_mediane(t_list *pile_a);
 void	sort3(t_list **pile_a, t_data data);
-void    sort(t_list **pile_a, t_list **pile_b, t_data data);
+void    sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot);
 void	reset_rot(int rot, t_list **pile_a);
 int		*put_in_tab(t_list *pile_a, int size);
+t_data	get_data(int *tab, int size,int nbPivot);
+int put_val_top(t_list **pile_a, int val);
+int get_pos(t_list *pile_a, int val);
 
 #endif
 

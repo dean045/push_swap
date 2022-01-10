@@ -72,7 +72,7 @@ void sort3(t_list **pile_a, t_data data)
 	}
 }
 
-void sort_suite(t_list **pile_a, t_list **pile_b, t_data data)
+void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 {
 	int size;
 	int x;
@@ -81,55 +81,57 @@ void sort_suite(t_list **pile_a, t_list **pile_b, t_data data)
 
 	x = 0;
 	size = ft_lstsize(*pile_a);
-	while (++x <= 4)
+	while (++x <= nbPivot)
 	{
-		while (x == 4 || (i < data.nb[3] - data.nb[3 - x] - x))
+		while ((x == nbPivot + 1 || (i < data.nb[nbPivot] - data.nb[nbPivot - x] - x)))
 		{
-			
-			rot = put_val_top(pile_b, data.tab[data.nb[3] - i - x]);
+			rot = put_val_top(pile_b, data.tab[data.nb[nbPivot] - i - x]);
 			if ((*pile_b))
 				push(pile_a, pile_b, 'a');
 			else
 				break;
-			if ((*pile_a)->content > (*pile_a)->next->content)
-					swap(*pile_a, 'a');
 			i++;
 		}
-		if (x < 4)
+		if (x < nbPivot + 1)
 			rrotate(pile_a, 'a');
 	}
-
-
 }
 
-void sort(t_list **pile_a, t_list **pile_b, t_data data)
+void sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 {
 	int x;
 	int	i;
+	t_data data_temp;
 
 	x = -1;
 	i = 0;
-	while (++x < 4)
+	while (++x < nbPivot + 1)
 	{
 		while (i < data.nb[x] - x)
 		{
-			//if (x < 3)
-			////printf("value = %i // i = %i // x = %i / nb =  %i\n", data.value[x] , i, x, data.nb[x] );
-			if (((x == 3) || (*pile_a)->content < data.value[x]) && (*pile_a)->content != data.value[0] && (*pile_a)->content != data.value[1] && (*pile_a)->content != data.value[2])
+			printf("nbpivot = %i, (*pile_a)->content = %i, data.value[x] = %i, is data %i \n", nbPivot, (*pile_a)->content, data.value[x], is_data((*pile_a)->content, nbPivot, data));
+			//printf("data nbx = %i // x = %i // i = %i \n", data.nb[x], x, i);
+			if (((x == nbPivot) || (*pile_a)->content < data.value[x]) &&
+					is_data((*pile_a)->content, nbPivot, data) == 0)
 			{
 				i++;
 				push(pile_b, pile_a, 'b');
-				////printf("test\n");
 				if ((*pile_b)->next && ((*pile_b)->content < (*pile_b)->next->content))
 					swap(*pile_b, 'b');
 			}
 			else
 				rotate(pile_a, 'a');
-			////print_pile(*pile_a, *pile_b);
 		}
 	}
-	sort3(pile_a, data);
-	rotate(pile_a, 'a');
-	rotate(pile_a, 'a');
-	sort_suite(pile_a, pile_b, data);
+	print_pile(*pile_a, *pile_b);
+	// x = ft_lstsize(*pile_a);
+	data_temp.tab = put_in_tab(*pile_a, ft_lstsize(*pile_a));
+	data_temp = get_data(data_temp.tab, nbPivot, 5);
+	sort_five(pile_a, pile_b, data_temp);
+	/*if (!is_sort(*pile_a) && nbPivot == 3)
+		sort3(pile_a, data_temp);*/
+	print_pile(*pile_a, *pile_b);
+	sort_suite(pile_a, pile_b, data, nbPivot);
+	//
+	
 }

@@ -31,3 +31,28 @@ void reset_rot(int rot, t_list **pile_a)
         }
     }
 }
+
+void sort_five(t_list **pile_a, t_list **pile_b, t_data data)
+{
+
+     put_val_top(pile_a, data.tab[4]);
+     push(pile_b, pile_a, 'b');
+      put_val_top(pile_a, data.tab[0]);
+     push(pile_b, pile_a, 'b');
+        sort3(pile_a, data);
+        push(pile_a, pile_b, 'a');
+        push(pile_a, pile_b, 'a');
+}
+
+int is_data(int val, int nbPivot, t_data data)
+{
+    int i;
+
+    i = -1;
+    while(++i < nbPivot)
+    {
+        if (val == data.value[i])
+            return (1);
+    }
+    return (0);
+}

@@ -41,7 +41,7 @@ int ft_sqrt(int x)
 	int	tmp;
 
 	tmp = 1;
-	while(tmp <= 46340 && tmp * tmp < x)
+	while(tmp <= 200 && tmp * tmp < x)
 	{
 		if ((tmp + 1) * (tmp + 1) > x)
 			return (tmp);
@@ -50,30 +50,24 @@ int ft_sqrt(int x)
 	return (tmp);
 }
 
-t_data	get_data(int *tab, int size)
+t_data	get_data(int *tab, int size, int nbPivot)
 {
 	int		i;
+	int		x;
 	t_data	data;
 
 	i = -1;
+	x = 0;
 	data.tab = tab;
-	data.nb[3] = size;
-	while(++i < size)
+	data.nb[nbPivot] = size;
+	while(++i < size && x < nbPivot)
 	{
-		if (i == (size / 4))
+		if (i  && (i % (size / nbPivot)) == 0)
 		{
-			data.value[0] = tab[i];
-			data.nb[0] = i;
-		}
-		else if (i == (size / 2))
-		{
-			data.value[1] = tab[i];
-			data.nb[1] = i;
-		}
-		else if (i == (size / 2) + (size / 4))
-		{
-			data.value[2] = tab[i];
-			data.nb[2] = i;
+			data.value[x] = tab[i];
+			data.nb[x] = i;
+			printf("data.nb[%i] = %i\n", x, data.nb[x]);
+			x++;
 		}
 	}
 	return (data);
@@ -99,22 +93,17 @@ int	main(int ac, char **av)
 		}
 		size = ft_lstsize(pile_a);
 		data.tab = put_in_tab(pile_a, size);
-		data = get_data(data.tab, size);
-		//int i = -1;
-		//while (++i < size)
-		//printf("tab[%i] = %i\n", i , data.tab[i]);
-		//printf("nb[0] = %i nb[1] = %i nb[2] = %i nb[3] = %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
-		//printf("%i %i %i\n", data.value[0], data.value[1], data.value[2]);
-	//while(!is_sort(pile_a))
-		sort(&pile_a, &pile_b, data);
-		//print_pile(pile_a, pile_b);
-		//printf("%i %i %i\n", data.value[0], data.value[1], data.value[2]);
+		data = get_data(data.tab, size, 5);
+		for(int s = 0; s < 5; s++)
+			printf("data.value[%i] = %i \ndata.nb[%i] = %i \n",s, data.value[s], s, data.nb[s]);
 		
-	////printf("%i %i %i %i\n", data.nb[0], data.nb[1], data.nb[2], data.nb[3]);
-		//tri(&pile_a, &pile_b, &count);
-		//push(&pile_b, &pile_a, 'b');
-		//
-		////printf("%i\n", is_sort(pile_a));
+		if (size == 3)
+			sort3(&pile_a, data);
+		else if (size == 5)
+			sort_five(&pile_a, &pile_b, data);
+		else
+			sort(&pile_a, &pile_b, data, 5);
+		print_pile(pile_a, pile_b);
 	}
 	return (0);
 }
