@@ -60,7 +60,7 @@ t_data	get_data(int *tab, int size, int nbPivot)
 	x = 0;
 	data.tab = tab;
 	data.nb[nbPivot] = size;
-	while(++i < size && x <= nbPivot)
+	while(++i < size && x < nbPivot)
 	{
 		if (i == size - 1 || (i % (size / nbPivot)) == 0)
 		{
@@ -111,12 +111,17 @@ int	main(int ac, char **av)
 			data = get_data(data.tab, size, 5);
 			sort_five(&pile_a, &pile_b, data);
 		}
-		else if (size < 200)
+		if (size <= 10)
+		{
+			data = get_data(data.tab, size, 3);
+			sort3(&pile_a, data);
+		}
+		else if (size <= 100)
 		{
 			data = get_data(data.tab, size, 5);
 			sort(&pile_a, &pile_b, data, 5);
 		}
-		else if (size >= 200)
+		else if (size > 100)
 		{
 			data = get_data(data.tab, size, 10);
 			sort(&pile_a, &pile_b, data, 10);

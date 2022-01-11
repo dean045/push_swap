@@ -31,9 +31,9 @@ void sort_five(t_list **pile_a, t_list **pile_b, t_data data)
 {
 	t_data data_temp;
 
-    put_val_top(pile_a, data.tab[4]);
+    put_val_top(pile_a, data.tab[4], 'a');
     push(pile_b, pile_a, 'b');
-    put_val_top(pile_a, data.tab[0]);
+    put_val_top(pile_a, data.tab[0], 'a');
     push(pile_b, pile_a, 'b');
     data_temp.tab = put_in_tab(*pile_a, 3);
     sort3(pile_a, data_temp);
@@ -42,24 +42,42 @@ void sort_five(t_list **pile_a, t_list **pile_b, t_data data)
     rotate(pile_a, 'a');
 }
 
-int get_next(t_list **pile_a, int val, int nbPivot, t_data data)
+int get_next(t_list *pile_a, int val, int nbPivot, t_data data)
 {
 	int x;
+    int tmp;
     int size;
+    int result;
     t_list  *temp;
 
-    size = ft_lstsize(*pile_a);
-	if (!(*pile_a))
+    if (!(pile_a))
 		return (-1);
-	x = 0;
-    temp = *pile_a;
-	while ((temp)->content >= val && is_data((temp)->content, nbPivot, data) == 0)
+    size = ft_lstsize(pile_a);
+	x = 0; 
+    tmp = size / 2;
+    temp = pile_a;
+    result = (temp)->content;
+	while (x < size)
 	{
+        if (((temp)->content < val && is_data((temp)->content, nbPivot, data) == 0))
+        {
+            if (x <= size / 2 && x < tmp)
+            {
+                tmp = x;
+                result = (temp)->content;
+            }
+            else if ((x > size / 2) && size - x < tmp)
+            {
+                tmp = size - x;
+                result = (temp)->content;
+            }
+        }
+        x++;
 		(temp) = (temp)->next;
 	}
     //put_val_top(pile_a, (temp)->content);
     //reset_rot(pile_a, x , val, size);
-	return ((temp)->content);
+	return (result);
 }
 
 int is_data(int val, int nbPivot, t_data data)
@@ -74,3 +92,41 @@ int is_data(int val, int nbPivot, t_data data)
     }
     return (0);
 }
+
+/*int get_next(t_list *pile_a, int val, int nbPivot, t_data data)
+{
+	int x;
+    int tmp;
+    int size;
+    int result;
+    t_list  *temp;
+
+    if (!(pile_a))
+		return (-1);
+    size = ft_lstsize(pile_a);
+	x = 0; 
+    tmp = size / 2;
+    temp = pile_a;
+    result = (temp)->content;
+	while (x < size)
+	{
+        if (((temp)->content < val && is_data((temp)->content, nbPivot, data) == 0))
+        {
+            if (x < size / 2 && x <= tmp)
+            {
+                tmp = x;
+                result = (temp)->content;
+            }
+            else if ((x > size / 2) && size - x <= tmp)
+            {
+                tmp = size - x;
+                result = (temp)->content;
+            }
+        }
+        x++;
+		(temp) = (temp)->next;
+	}
+    //put_val_top(pile_a, (temp)->content);
+    //reset_rot(pile_a, x , val, size);
+	return (result);
+}*/

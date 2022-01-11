@@ -23,7 +23,7 @@ typedef struct	s_data
 }				t_data;
 
 int		input_check(int ac, char **av);
-int get_next(t_list **pile_a, int val, int nbPivot, t_data data);
+int get_next(t_list *pile_a, int val, int nbPivot, t_data data);
 int is_data(int val, int nbPivot, t_data data);
 void sort_five(t_list **pile_a, t_list **pile_b, t_data data);
 void	print_pile(t_list *pile_a, t_list *pile_b);
@@ -48,7 +48,7 @@ void    sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot);
 void	reset_rot(t_list **pile_a, int rot, int val,int size);
 int		*put_in_tab(t_list *pile_a, int size);
 t_data	get_data(int *tab, int size,int nbPivot);
-int put_val_top(t_list **pile_a, int val);
+int put_val_top(t_list **pile_a, int val, char c);
 int get_pos(t_list *pile_a, int val);
 
 #endif

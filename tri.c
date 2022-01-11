@@ -30,7 +30,7 @@ int get_pos(t_list *pile_a, int val)
 	return (x);
 }
 
-int put_val_top(t_list **pile_a, int val)
+int put_val_top(t_list **pile_a, int val, char c)
 {
 	int size;
 	int pos;
@@ -43,14 +43,14 @@ int put_val_top(t_list **pile_a, int val)
 	rot = 0;
 	while ((*pile_a)->content != val)
 	{
-		if (pos >= (size/ 2))
+		if (pos > (size/ 2))
 		{
-			rrotate(pile_a, 'a');
+			rrotate(pile_a, c);
 			rot--;
 		}
 		else
 		{
-			rotate(pile_a, 'a');
+			rotate(pile_a, c);
 			rot++;
 		}
 	}
@@ -81,7 +81,7 @@ void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 	while (!is_data(data.tab[data.nb[nbPivot] - i - 1], nbPivot, data) && i < data.nb[nbPivot] - 1)
 	{
 		tmp = data.tab[data.nb[nbPivot] - i - 1];
-		rot = put_val_top(pile_b, data.tab[data.nb[nbPivot] - i - 1]);
+		rot = put_val_top(pile_b, data.tab[data.nb[nbPivot] - i - 1], 'b');
 		if(*pile_b)
 			push(pile_a, pile_b, 'a');
 		else
@@ -110,8 +110,10 @@ void sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 		{
 			//printf("nbpivot = %i, (*pile_a)->content = %i, data.value[x] = %i, is data %i \n", nbPivot, (*pile_a)->content, data.value[x], is_data((*pile_a)->content, nbPivot, data));
 			//printf("data nbx = %i // x = %i // i = %i \n", data.nb[x], x, i);
-			/*if (x < nbPivot)
-				put_val_top(pile_b,get_next(pile_a, data.tab[data.nb[nbPivot - x] - 2], nbPivot, data));*/
+			if (x < nbPivot)
+				put_val_top(pile_a, get_next(*pile_a, data.value[x], nbPivot, data), 'a');
+			if (x == nbPivot)
+				put_val_top(pile_a, data.tab[i + x], 'a');
 			if (((x == nbPivot) || (*pile_a)->content < data.value[x]) &&
 					is_data((*pile_a)->content, nbPivot, data) == 0)
 			{
@@ -121,37 +123,39 @@ void sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 				if ((*pile_b)->next && ((*pile_b)->content < (*pile_b)->next->content))
 					swap(*pile_b, 'b');
 			}
-			/*else if (x != nbPivot)
-				get_next(pile_a, data.value[x], nbPivot, data);*/
-			else
-				rrotate(pile_a, 'a');
+			/*else
+				rrotate(pile_a, 'a');*/
 		}
 	}
 	
 	// x = ft_lstsize(*pile_a);
 	data_temp.tab = put_in_tab(*pile_a, ft_lstsize(*pile_a));
 
+	//print_pile(*pile_a, *pile_b);
 	if (nbPivot >= 10)
 	{
 		data_temp = get_data(data_temp.tab, nbPivot, 5);
-		sort(pile_a, pile_b, data_temp, 5);
+		if (!is_sort(*pile_a))
+			sort(pile_a, pile_b, data_temp, 5);
 		sort_suite(pile_a, pile_b, data, nbPivot);
 	}
 	else if (nbPivot == 5)
 	{
 		data_temp = get_data(data_temp.tab, nbPivot, 5);
-		sort_five(pile_a, pile_b, data_temp);
+		if (!is_sort(*pile_a))
+			sort_five(pile_a, pile_b, data_temp);
 		sort_suite(pile_a, pile_b, data, 5);
 	}
 	else if (nbPivot >= 3)
 	{
 		data_temp = get_data(data_temp.tab, nbPivot, 3);
-		sort3(pile_a, data_temp);
+		if (!is_sort(*pile_a))
+			sort3(pile_a, data_temp);
 		sort_suite(pile_a, pile_b, data, nbPivot);
 	}
 	/*for(int s = 0; s <= 5; s++)
 			printf("data.value[%i] = %i \ndata.nb[%i] = %i \n",s, data.value[s], s, data.nb[s]);*/
-
+	
 		
 	//print_pile(*pile_a, *pile_b);
 	/*if (!is_sort(*pile_a) && nbPivot == 3)
