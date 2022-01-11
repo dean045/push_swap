@@ -111,15 +111,15 @@ int	main(int ac, char **av)
 			data = get_data(data.tab, size, 5);
 			sort_five(&pile_a, &pile_b, data);
 		}
-		else if (size >= 100)
-		{
-			data = get_data(data.tab, size, 10);
-			sort(&pile_a, &pile_b, data, 10);
-		}
-		else
+		else if (size < 200)
 		{
 			data = get_data(data.tab, size, 5);
 			sort(&pile_a, &pile_b, data, 5);
+		}
+		else if (size >= 200)
+		{
+			data = get_data(data.tab, size, 10);
+			sort(&pile_a, &pile_b, data, 10);
 		}
 			
 		//print_pile(pile_a, pile_b);

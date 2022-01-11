@@ -53,13 +53,13 @@ int get_next(t_list **pile_a, int val, int nbPivot, t_data data)
 		return (-1);
 	x = 0;
     temp = *pile_a;
-	while ((temp)->content > val && is_data((temp)->content, nbPivot, data) == 0)
+	while ((temp)->content >= val && is_data((temp)->content, nbPivot, data) == 0)
 	{
 		(temp) = (temp)->next;
 	}
-    put_val_top(pile_a, (temp)->content);
+    //put_val_top(pile_a, (temp)->content);
     //reset_rot(pile_a, x , val, size);
-	return (x);
+	return ((temp)->content);
 }
 
 int is_data(int val, int nbPivot, t_data data)
