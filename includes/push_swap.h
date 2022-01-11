@@ -17,12 +17,13 @@
 
 typedef struct	s_data
 {
-	int nb[7];
-	int	value[6];
+	int nb[22];
+	int	value[22];
 	int	*tab;
 }				t_data;
 
 int		input_check(int ac, char **av);
+int get_next(t_list **pile_a, int val, int nbPivot, t_data data);
 int is_data(int val, int nbPivot, t_data data);
 void sort_five(t_list **pile_a, t_list **pile_b, t_data data);
 void	print_pile(t_list *pile_a, t_list *pile_b);
@@ -44,7 +45,7 @@ void	tri2(t_list **pile_a, t_list **pile_b);
 int		get_mediane(t_list *pile_a);
 void	sort3(t_list **pile_a, t_data data);
 void    sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot);
-void	reset_rot(int rot, t_list **pile_a);
+void	reset_rot(t_list **pile_a, int rot, int val,int size);
 int		*put_in_tab(t_list *pile_a, int size);
 t_data	get_data(int *tab, int size,int nbPivot);
 int put_val_top(t_list **pile_a, int val);
