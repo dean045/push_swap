@@ -42,12 +42,13 @@ void sort_five(t_list **pile_a, t_list **pile_b, t_data data)
     rotate(pile_a, 'a');
 }
 
-int get_next(t_list *pile_a, int val, int nbPivot, t_data data)
+int get_next_inf(t_list *pile_a, int val, int nbPivot, t_data data)
 {
 	int x;
     int tmp;
     int size;
     int result;
+    int debug;
     t_list  *temp;
 
     if (!(pile_a))
@@ -59,60 +60,10 @@ int get_next(t_list *pile_a, int val, int nbPivot, t_data data)
     result = (temp)->content;
 	while (x < size)
 	{
-        if (((temp)->content < val && is_data((temp)->content, nbPivot, data) == 0))
+        debug = (temp)->content;
+        if ((temp)->content < val)
         {
             if (x <= size / 2 && x < tmp)
-            {
-                tmp = x;
-                result = (temp)->content;
-            }
-            else if ((x > size / 2) && size - x < tmp)
-            {
-                tmp = size - x;
-                result = (temp)->content;
-            }
-        }
-        x++;
-		(temp) = (temp)->next;
-	}
-    //put_val_top(pile_a, (temp)->content);
-    //reset_rot(pile_a, x , val, size);
-	return (result);
-}
-
-int is_data(int val, int nbPivot, t_data data)
-{
-    int i;
-
-    i = -1;
-    while(++i < nbPivot)
-    {
-        if (val == data.value[i])
-            return (1);
-    }
-    return (0);
-}
-
-/*int get_next(t_list *pile_a, int val, int nbPivot, t_data data)
-{
-	int x;
-    int tmp;
-    int size;
-    int result;
-    t_list  *temp;
-
-    if (!(pile_a))
-		return (-1);
-    size = ft_lstsize(pile_a);
-	x = 0; 
-    tmp = size / 2;
-    temp = pile_a;
-    result = (temp)->content;
-	while (x < size)
-	{
-        if (((temp)->content < val && is_data((temp)->content, nbPivot, data) == 0))
-        {
-            if (x < size / 2 && x <= tmp)
             {
                 tmp = x;
                 result = (temp)->content;
@@ -126,7 +77,34 @@ int is_data(int val, int nbPivot, t_data data)
         x++;
 		(temp) = (temp)->next;
 	}
-    //put_val_top(pile_a, (temp)->content);
-    //reset_rot(pile_a, x , val, size);
 	return (result);
-}*/
+}
+
+int get_next_sup(t_list *pile_a, int val, int nbPivot, t_data data)
+{
+	int x;
+    int tmp;
+    int size;
+    int result;
+    int debug;
+    t_list  *temp;
+
+    if (!(pile_a))
+		return (-1);
+    size = ft_lstsize(pile_a);
+	x = 0; 
+    tmp = size / 2;
+    temp = pile_a;
+    result = data.value[2];
+	while (x < size)
+	{
+        debug = (temp)->content;
+        if ((temp)->content > val && (temp)->content < result)
+        {
+            result = ((temp)->content);
+        }
+        x++;
+		(temp) = (temp)->next;
+	}
+	return (result);
+}

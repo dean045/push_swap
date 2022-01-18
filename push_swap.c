@@ -52,32 +52,14 @@ int ft_sqrt(int x)
 
 t_data	get_data(int *tab, int size, int nbPivot)
 {
-	int		i;
-	int		x;
 	t_data	data;
 
-	i = -1;
-	x = 0;
 	data.tab = tab;
-	data.nb[nbPivot] = size;
-	while(++i < size && x < nbPivot)
-	{
-		if (i == size - 1 || (i % (size / nbPivot)) == 0)
-		{
-			if (i == size - 1)
-			{
-				data.value[x] = tab[i - 1];
-				data.nb[x] = size;
-			}
-			else 
-			{
-				data.value[x] = tab[i];
-				data.nb[x] = i;
-			}
-			//printf("data.nb[%i] = %i\n", x, data.nb[x]);
-			x++;
-		}
-	}
+	data.nb[2] = size;
+	data.value[0] = tab[(size - 1) / 2];
+	data.nb[0] = (size - 1) / 2;
+	data.value[1] = tab[(size - 1)];
+	data.nb[1] = (size - 1);
 	return (data);
 }
 
@@ -100,33 +82,10 @@ int	main(int ac, char **av)
 			return (0);
 		}
 		size = ft_lstsize(pile_a);
-		data.tab = put_in_tab(pile_a, size);		
-		if (size == 3)
-		{
-			data = get_data(data.tab, size, 3);
-			sort3(&pile_a, data);
-		}
-		else if (size == 5)
-		{
-			data = get_data(data.tab, size, 5);
-			sort_five(&pile_a, &pile_b, data);
-		}
-		if (size <= 10)
-		{
-			data = get_data(data.tab, size, 3);
-			sort3(&pile_a, data);
-		}
-		else if (size <= 100)
-		{
-			data = get_data(data.tab, size, 5);
-			sort(&pile_a, &pile_b, data, 5);
-		}
-		else if (size > 100)
-		{
-			data = get_data(data.tab, size, 10);
-			sort(&pile_a, &pile_b, data, 10);
-		}
-			
+		data.tab = put_in_tab(pile_a, size);
+		data = get_data(data.tab, size, 2);
+		//printf("value 0 = %i, value 1 = %i, nb 0 = %i, nb 1 = %i\n", data.value[0],data.value[1],data.nb[0],data.nb[1]);
+		sort(&pile_a, &pile_b, data, 2);
 		//print_pile(pile_a, pile_b);
 	}
 	return (0);

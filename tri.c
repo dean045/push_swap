@@ -72,94 +72,78 @@ void sort3(t_list **pile_a, t_data data)
 	}
 }
 
-void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
-{
-	int rot;
-	int tmp;
-	int i = 0;
-
-	while (!is_data(data.tab[data.nb[nbPivot] - i - 1], nbPivot, data) && i < data.nb[nbPivot] - 1)
-	{
-		tmp = data.tab[data.nb[nbPivot] - i - 1];
-		rot = put_val_top(pile_b, data.tab[data.nb[nbPivot] - i - 1], 'b');
-		if(*pile_b)
-			push(pile_a, pile_b, 'a');
-		else
-			break;
-		i++;	
-		if (is_data(data.tab[data.nb[nbPivot] - i - 1], nbPivot, data))
-		{
-			rrotate(pile_a, 'a');
-			i++;
-		}
-	}
-}
-
 void sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 {
-	int x;
 	int	i;
-	t_data data_temp;
 
-	x = -1;
-	i = 0;
-	while (++x < nbPivot + 1)
+	i = -1;
+	while (++i < data.nb[2])
 	{
-		
-		while (i < data.nb[x] - x)
+		if (i < data.nb[0])
 		{
-			//printf("nbpivot = %i, (*pile_a)->content = %i, data.value[x] = %i, is data %i \n", nbPivot, (*pile_a)->content, data.value[x], is_data((*pile_a)->content, nbPivot, data));
-			//printf("data nbx = %i // x = %i // i = %i \n", data.nb[x], x, i);
-			if (x < nbPivot)
-				put_val_top(pile_a, get_next(*pile_a, data.value[x], nbPivot, data), 'a');
-			if (x == nbPivot)
-				put_val_top(pile_a, data.tab[i + x], 'a');
-			if (((x == nbPivot) || (*pile_a)->content < data.value[x]) &&
-					is_data((*pile_a)->content, nbPivot, data) == 0)
-			{
-
-				i++;
+			if ((*pile_a)->content >= data.value[0])
+				put_val_top(pile_a, get_next_inf(*pile_a, data.value[0], nbPivot, data), 'a');
+			push(pile_b, pile_a, 'b');
+		}
+		else
+		{
+			if ((*pile_a)->content == data.value[1])
+				rotate(pile_a, 'a');
+			else
 				push(pile_b, pile_a, 'b');
-				if ((*pile_b)->next && ((*pile_b)->content < (*pile_b)->next->content))
-					swap(*pile_b, 'b');
-			}
-			/*else
-				rrotate(pile_a, 'a');*/
 		}
 	}
-	
-	// x = ft_lstsize(*pile_a);
-	data_temp.tab = put_in_tab(*pile_a, ft_lstsize(*pile_a));
+	//print_pile(*pile_a, *pile_b);
+	sort_suite(pile_a, pile_b, data, 2);
+}
 
-	//print_pile(*pile_a, *pile_b);
-	if (nbPivot >= 10)
+void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
+{
+	int	i;
+	int x;
+
+	i = -1;
+	x = -1;
+
+	while (++i < data.nb[2] - 1)
 	{
-		data_temp = get_data(data_temp.tab, nbPivot, 5);
-		if (!is_sort(*pile_a))
-			sort(pile_a, pile_b, data_temp, 5);
-		sort_suite(pile_a, pile_b, data, nbPivot);
+		put_val_top(pile_b, get_best(*pile_a, *pile_b, data), 'b');
+		//printf("%i\n", get_next_sup(*pile_a, (*pile_b)->content, 2, data));
+		put_val_top(pile_a, get_next_sup(*pile_a, (*pile_b)->content, 2, data), 'a');
+		push(pile_a, pile_b, 'a');
+		//print_pile(*pile_a, *pile_b);
 	}
-	else if (nbPivot == 5)
+	while (ft_lstlast(*pile_a)->content != data.value[1])
+		rotate(pile_a, 'a');
+}
+
+int get_best(t_list *pile_a, t_list *pile_b, t_data data)
+{
+    int op;
+	int	tmp;
+	int	i;
+	int	size;
+	int val;
+
+	i = -1;
+	size = ft_lstsize(pile_b);
+	op = data.nb[2];
+	val = (pile_a)->content;
+	while (++i < size)
 	{
-		data_temp = get_data(data_temp.tab, nbPivot, 5);
-		if (!is_sort(*pile_a))
-			sort_five(pile_a, pile_b, data_temp);
-		sort_suite(pile_a, pile_b, data, 5);
+		if (i <= (size) / 2)
+			tmp = get_pos(pile_a, get_next_sup(pile_a, (pile_b)->content, 2, data)) + i;
+		else
+			tmp = get_pos(pile_a, get_next_sup(pile_a, (pile_b)->content, 2, data)) + (size - i);
+		if (tmp < op)
+		{
+			val = (pile_b)->content;
+			if (i <= (size) / 2)
+				op = i;
+			else
+				op = size - i;
+		}
+		pile_b = pile_b->next;
 	}
-	else if (nbPivot >= 3)
-	{
-		data_temp = get_data(data_temp.tab, nbPivot, 3);
-		if (!is_sort(*pile_a))
-			sort3(pile_a, data_temp);
-		sort_suite(pile_a, pile_b, data, nbPivot);
-	}
-	/*for(int s = 0; s <= 5; s++)
-			printf("data.value[%i] = %i \ndata.nb[%i] = %i \n",s, data.value[s], s, data.nb[s]);*/
-	
-		
-	//print_pile(*pile_a, *pile_b);
-	/*if (!is_sort(*pile_a) && nbPivot == 3)
-		sort3(pile_a, data_temp);*/
-	//print_pile(*pile_a, *pile_b);
-	
+	return (val);
 }

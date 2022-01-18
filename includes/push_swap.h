@@ -23,7 +23,10 @@ typedef struct	s_data
 }				t_data;
 
 int		input_check(int ac, char **av);
-int get_next(t_list *pile_a, int val, int nbPivot, t_data data);
+void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot);
+int get_best(t_list *pile_a, t_list *pile_b, t_data data);
+int get_next_inf(t_list *pile_a, int val, int nbPivot, t_data data);
+int get_next_sup(t_list *pile_a, int val, int nbPivot, t_data data);
 int is_data(int val, int nbPivot, t_data data);
 void sort_five(t_list **pile_a, t_list **pile_b, t_data data);
 void	print_pile(t_list *pile_a, t_list *pile_b);
