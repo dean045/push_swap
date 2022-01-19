@@ -76,14 +76,25 @@ void sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 {
 	int	i;
 
-	i = -1;
-	while (++i < data.nb[2])
+	i = 0;
+	while (i < data.nb[2] - 1)
 	{
-		if (i < data.nb[0])
+		if ((*pile_a)->content == data.value[1])
+			rotate(pile_a, 'a');
+		else
 		{
-			if ((*pile_a)->content >= data.value[0])
-				put_val_top(pile_a, get_next_inf(*pile_a, data.value[0], nbPivot, data), 'a');
 			push(pile_b, pile_a, 'b');
+			if ((*pile_b)->content < data.value[0])
+				rotate(pile_b, 'b');
+			i++;
+		}
+		
+		/*if (i < data.nb[0])
+		{
+			while ((*pile_a)->content >= data.value[0])
+				rotate(pile_a, 'a');
+			if ((*pile_a)->content < data.value[0])
+				push(pile_b, pile_a, 'b');
 		}
 		else
 		{
@@ -91,9 +102,9 @@ void sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 				rotate(pile_a, 'a');
 			else
 				push(pile_b, pile_a, 'b');
-		}
+		}*/
 	}
-	//print_pile(*pile_a, *pile_b);
+	print_pile(*pile_a, *pile_b);
 	sort_suite(pile_a, pile_b, data, 2);
 }
 
@@ -102,38 +113,38 @@ void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 	int	i;
 	int a;
 	int b;
+	int x;
 
 	i = -1;
 
-	while (++i < data.nb[2] - 1)
+	while (++i < data.nb[2] - 2)
 	{
 		b = get_best(*pile_a, *pile_b, data);
 		a = get_next_sup(*pile_a, b, 2, data);
-		//printf("a= %i b= %i\n",a , b);
-		if (get_pos(*pile_b, b) > (ft_lstsize(*pile_b) / 2)
-			&& get_pos(*pile_a, a) > (ft_lstsize(*pile_a) / 2))
+		if (get_pos(*pile_b, b) > ((ft_lstsize(*pile_b) - 1) / 2)
+			&& get_pos(*pile_a, a) > ((ft_lstsize(*pile_a)- 1 ) / 2))
 			{
 				while (b != (*pile_b)->content && a != (*pile_a)->content)
 					rrr(pile_a, pile_b);
 			}
-		else if (get_pos(*pile_b, b) <= (ft_lstsize(*pile_b) / 2) 
-		&&  get_pos(*pile_a, a) <= (ft_lstsize(*pile_a) / 2))
+		else if (get_pos(*pile_b, b) <= ((ft_lstsize(*pile_b) - 1) / 2) 
+		&&  get_pos(*pile_a, a) <= ((ft_lstsize(*pile_a)- 1 ) / 2))
 		{
 			while (b != (*pile_b)->content && a != (*pile_a)->content)
 				rr(pile_a, pile_b);
 		}
-		//print_pile(*pile_a, *pile_b);
 		put_val_top(pile_b, b, 'b');
-		//print_pile(*pile_a, *pile_b);
-		//printf("%i\n", get_next_sup(*pile_a, (*pile_b)->content, 2, data));
 		put_val_top(pile_a, a, 'a');
-		//print_pile(*pile_a, *pile_b);
 		push(pile_a, pile_b, 'a');
-		//print_pile(*pile_a, *pile_b);
-		//print_pile(*pile_a, *pile_b);
 	}
-	while (ft_lstlast(*pile_a)->content != data.value[1])
-		rotate(pile_a, 'a');
+	x = get_pos(*pile_a, data.tab[0]);
+	while ((*pile_a)->content != data.tab[0])
+	{
+		if (x > ((data.nb[2] - 1) / 2))
+			rrotate(pile_a, 'a');
+		else
+			rotate(pile_a, 'a');
+	}
 }
 
 int get_best(t_list *pile_a, t_list *pile_b, t_data data)
@@ -145,28 +156,32 @@ int get_best(t_list *pile_a, t_list *pile_b, t_data data)
 	int val;
 	t_list  *temp;
 
-	i = -1;
+	i = 0;
+	if (!pile_b)
+		return (0);
 	size = ft_lstsize(pile_b);
-	op = size*2;
-	val = data.value[1];
+	op = size * 2;
+	val = (pile_b)->content;
 	temp = pile_b;
-	while (temp)
+	while (temp && op)
 	{
-		if (++i <= (size) / 2)
-			tmp = get_pos(pile_a, get_next_sup(pile_a, (temp)->content, 2, data))-1 + i;
+		tmp = get_pos(pile_a, get_next_sup(pile_a, (temp)->content, 2, data));
+		if (tmp > ((ft_lstsize(pile_a) -1) / 2))
+			tmp = ft_lstsize(pile_a) - tmp;
+		if (i > ((size -1) / 2))
+			tmp += size - i;
 		else
-			tmp = get_pos(pile_a, get_next_sup(pile_a, (temp)->content, 2, data))-1 + (size - i);
-		if(tmp == 0)
-			return (temp->content);
-		if (tmp <= op)
+			tmp += i;
+		if (tmp < op)
 		{
 			val = (temp)->content;
-			if (i <= (size) / 2)
-				op = i;
+			if (i <= (size -1) / 2)
+				op = tmp;
 			else
-				op = size - i;
+				op = size - tmp;
 		}
 		temp = temp->next;
+		i++;
 	}
 	return (val);
 }
