@@ -35,5 +35,5 @@ void	rrr(t_list **pile_a, t_list **pile_b)
 {
 	rrotate(pile_a, 0);
 	rrotate(pile_b, 0);
-	write(1,"rrr\n", 3);
+	write(1,"rrr\n", 4);
 }

@@ -20,12 +20,12 @@ int get_pos(t_list *pile_a, int val)
 	if (!pile_a)
 		return (-1);
 	x = 0;
-	while (pile_a && pile_a->next && pile_a->content != val)
+	while (pile_a && pile_a->content != val)
 	{
 		x++;
 		pile_a = pile_a->next;
 	}
-	if (pile_a->content != val && x == ft_lstsize(pile_a) - 1)
+	if (!pile_a)
 		return (-1);
 	return (x);
 }
@@ -100,17 +100,36 @@ void sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 {
 	int	i;
-	int x;
+	int a;
+	int b;
 
 	i = -1;
-	x = -1;
 
 	while (++i < data.nb[2] - 1)
 	{
-		put_val_top(pile_b, get_best(*pile_a, *pile_b, data), 'b');
+		b = get_best(*pile_a, *pile_b, data);
+		a = get_next_sup(*pile_a, b, 2, data);
+		//printf("a= %i b= %i\n",a , b);
+		if (get_pos(*pile_b, b) > (ft_lstsize(*pile_b) / 2)
+			&& get_pos(*pile_a, a) > (ft_lstsize(*pile_a) / 2))
+			{
+				while (b != (*pile_b)->content && a != (*pile_a)->content)
+					rrr(pile_a, pile_b);
+			}
+		else if (get_pos(*pile_b, b) <= (ft_lstsize(*pile_b) / 2) 
+		&&  get_pos(*pile_a, a) <= (ft_lstsize(*pile_a) / 2))
+		{
+			while (b != (*pile_b)->content && a != (*pile_a)->content)
+				rr(pile_a, pile_b);
+		}
+		//print_pile(*pile_a, *pile_b);
+		put_val_top(pile_b, b, 'b');
+		//print_pile(*pile_a, *pile_b);
 		//printf("%i\n", get_next_sup(*pile_a, (*pile_b)->content, 2, data));
-		put_val_top(pile_a, get_next_sup(*pile_a, (*pile_b)->content, 2, data), 'a');
+		put_val_top(pile_a, a, 'a');
+		//print_pile(*pile_a, *pile_b);
 		push(pile_a, pile_b, 'a');
+		//print_pile(*pile_a, *pile_b);
 		//print_pile(*pile_a, *pile_b);
 	}
 	while (ft_lstlast(*pile_a)->content != data.value[1])
@@ -120,30 +139,34 @@ void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 int get_best(t_list *pile_a, t_list *pile_b, t_data data)
 {
     int op;
-	int	tmp;
+	int tmp;
 	int	i;
 	int	size;
 	int val;
+	t_list  *temp;
 
 	i = -1;
 	size = ft_lstsize(pile_b);
-	op = data.nb[2];
-	val = (pile_a)->content;
-	while (++i < size)
+	op = size*2;
+	val = data.value[1];
+	temp = pile_b;
+	while (temp)
 	{
-		if (i <= (size) / 2)
-			tmp = get_pos(pile_a, get_next_sup(pile_a, (pile_b)->content, 2, data)) + i;
+		if (++i <= (size) / 2)
+			tmp = get_pos(pile_a, get_next_sup(pile_a, (temp)->content, 2, data))-1 + i;
 		else
-			tmp = get_pos(pile_a, get_next_sup(pile_a, (pile_b)->content, 2, data)) + (size - i);
-		if (tmp < op)
+			tmp = get_pos(pile_a, get_next_sup(pile_a, (temp)->content, 2, data))-1 + (size - i);
+		if(tmp == 0)
+			return (temp->content);
+		if (tmp <= op)
 		{
-			val = (pile_b)->content;
+			val = (temp)->content;
 			if (i <= (size) / 2)
 				op = i;
 			else
 				op = size - i;
 		}
-		pile_b = pile_b->next;
+		temp = temp->next;
 	}
 	return (val);
 }

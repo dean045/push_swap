@@ -93,15 +93,16 @@ int get_next_sup(t_list *pile_a, int val, int nbPivot, t_data data)
 		return (-1);
     size = ft_lstsize(pile_a);
 	x = 0; 
-    tmp = size / 2;
+    if(size == 1)
+        return ((pile_a)->content);
     temp = pile_a;
-    result = data.value[2];
-	while (x < size)
+    result = data.value[1];
+	while ((temp))
 	{
         debug = (temp)->content;
-        if ((temp)->content > val && (temp)->content < result)
+        if ((temp)->content >= val && (temp)->content <= result)
         {
-            result = ((temp)->content);
+             result = (temp)->content;
         }
         x++;
 		(temp) = (temp)->next;
