@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tri.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 14:05:06 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/26 17:25:43 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:50:01 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,63 +88,38 @@ void sort(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 				rotate(pile_b, 'b');
 			i++;
 		}
-		
-		/*if (i < data.nb[0])
-		{
-			while ((*pile_a)->content >= data.value[0])
-				rotate(pile_a, 'a');
-			if ((*pile_a)->content < data.value[0])
-				push(pile_b, pile_a, 'b');
-		}
-		else
-		{
-			if ((*pile_a)->content == data.value[1])
-				rotate(pile_a, 'a');
-			else
-				push(pile_b, pile_a, 'b');
-		}*/
 	}
-	print_pile(*pile_a, *pile_b);
 	sort_suite(pile_a, pile_b, data, 2);
 }
 
 void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 {
 	int	i;
+
 	int a;
 	int b;
-	int x;
-
 	i = -1;
-
-	while (++i < data.nb[2] - 2)
+	while (++i < data.nb[2] - 1)
 	{
-		b = get_best(*pile_a, *pile_b, data);
-		a = get_next_sup(*pile_a, b, 2, data);
-		if (get_pos(*pile_b, b) > ((ft_lstsize(*pile_b) - 1) / 2)
-			&& get_pos(*pile_a, a) > ((ft_lstsize(*pile_a)- 1 ) / 2))
-			{
-				while (b != (*pile_b)->content && a != (*pile_a)->content)
-					rrr(pile_a, pile_b);
-			}
-		else if (get_pos(*pile_b, b) <= ((ft_lstsize(*pile_b) - 1) / 2) 
-		&&  get_pos(*pile_a, a) <= ((ft_lstsize(*pile_a)- 1 ) / 2))
+		while (get_pos(*pile_b, get_best(*pile_a, *pile_b, data)) > ((ft_lstsize(*pile_b)/ 2) )
+			&& get_pos(*pile_a, get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data)) > ((ft_lstsize(*pile_a)/ 2) ))
 		{
-			while (b != (*pile_b)->content && a != (*pile_a)->content)
+			b = get_best(*pile_a, *pile_b, data);
+			a = get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data);
+				rrr(pile_a, pile_b);
+		}
+		if (get_pos(*pile_b, get_best(*pile_a, *pile_b, data)) <= ((ft_lstsize(*pile_b)/ 2)) 
+		&&  get_pos(*pile_a, get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data)) <= ((ft_lstsize(*pile_a)/ 2) )
+		&& get_pos(*pile_b, get_best(*pile_a, *pile_b, data)) && get_pos(*pile_a, get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data)))
+		{
+			while (get_best(*pile_a, *pile_b, data) != (*pile_b)->content && get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data) != (*pile_a)->content)
 				rr(pile_a, pile_b);
 		}
-		put_val_top(pile_b, b, 'b');
-		put_val_top(pile_a, a, 'a');
+		put_val_top(pile_b, get_best(*pile_a, *pile_b, data), 'b');
+		put_val_top(pile_a, get_next_sup(*pile_a, (*pile_b)->content, 2, data), 'a');
 		push(pile_a, pile_b, 'a');
 	}
-	x = get_pos(*pile_a, data.tab[0]);
-	while ((*pile_a)->content != data.tab[0])
-	{
-		if (x > ((data.nb[2] - 1) / 2))
-			rrotate(pile_a, 'a');
-		else
-			rotate(pile_a, 'a');
-	}
+	put_val_top(pile_a, data.tab[0], 'a');
 }
 
 int get_best(t_list *pile_a, t_list *pile_b, t_data data)
@@ -166,16 +141,16 @@ int get_best(t_list *pile_a, t_list *pile_b, t_data data)
 	while (temp && op)
 	{
 		tmp = get_pos(pile_a, get_next_sup(pile_a, (temp)->content, 2, data));
-		if (tmp > ((ft_lstsize(pile_a) -1) / 2))
+		if (tmp > ((ft_lstsize(pile_a)) / 2))
 			tmp = ft_lstsize(pile_a) - tmp;
-		if (i > ((size -1) / 2))
+		if (i > ((size) / 2))
 			tmp += size - i;
 		else
 			tmp += i;
 		if (tmp < op)
 		{
 			val = (temp)->content;
-			if (i <= (size -1) / 2)
+			if (i <= size / 2)
 				op = tmp;
 			else
 				op = size - tmp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/26 13:35:09 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:20:19 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ typedef struct	s_data
 	int	*tab;
 }				t_data;
 
+void sortbig_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot);
+void sortbig(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot);
+int get_best(t_list *pile_a, t_list *pile_b, t_data data);
 int		input_check(int ac, char **av);
 void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot);
 int get_best(t_list *pile_a, t_list *pile_b, t_data data);

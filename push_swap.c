@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/26 17:25:48 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:13:37 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,43 @@ int ft_sqrt(int x)
 	return (tmp);
 }
 
+t_data	getbig_data(int *tab, int size, int nbPivot)
+{
+	int		i;
+	int		x;
+	t_data	data;
+
+	i = -1;
+	x = 0;
+	data.tab = tab;
+	data.nb[nbPivot] = size;
+	while(++i < size && x < nbPivot)
+	{
+		if (i == size - 1 || (i % (size / nbPivot)) == 0)
+		{
+			if (i == size - 1)
+			{
+				data.value[x] = tab[i - 1];
+				data.nb[x] = size;
+			}
+			else 
+			{
+				data.value[x] = tab[i];
+				data.nb[x] = i;
+			}
+			//printf("data.nb[%i] = %i\n", x, data.nb[x]);
+			x++;
+		}
+	}
+	return (data);
+}
+
 t_data	get_data(int *tab, int size, int nbPivot)
 {
 	t_data	data;
 
 	data.tab = tab;
-	data.nb[2] = size;
+	data.nb[nbPivot] = size;
 	data.value[0] = tab[(size - 1) / 2];
 	data.nb[0] = (size - 1) / 2;
 	data.value[1] = tab[(size - 1)];
