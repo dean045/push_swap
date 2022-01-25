@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 14:05:06 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/24 15:50:01 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:02:47 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,22 @@ void sort_suite(t_list **pile_a, t_list **pile_b, t_data data, int nbPivot)
 	i = -1;
 	while (++i < data.nb[2] - 1)
 	{
+		b = get_best(*pile_a, *pile_b, data);
+		a = get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data);
 		while (get_pos(*pile_b, get_best(*pile_a, *pile_b, data)) > ((ft_lstsize(*pile_b)/ 2) )
 			&& get_pos(*pile_a, get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data)) > ((ft_lstsize(*pile_a)/ 2) ))
 		{
-			b = get_best(*pile_a, *pile_b, data);
-			a = get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data);
-				rrr(pile_a, pile_b);
+			rrr(pile_a, pile_b);
+			if ((*pile_b)->content == get_best(*pile_a, *pile_b, data) || (*pile_a)->content == get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data))
+				break ;
 		}
-		if (get_pos(*pile_b, get_best(*pile_a, *pile_b, data)) <= ((ft_lstsize(*pile_b)/ 2)) 
+		while (get_pos(*pile_b, get_best(*pile_a, *pile_b, data)) <= ((ft_lstsize(*pile_b)/ 2)) 
 		&&  get_pos(*pile_a, get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data)) <= ((ft_lstsize(*pile_a)/ 2) )
 		&& get_pos(*pile_b, get_best(*pile_a, *pile_b, data)) && get_pos(*pile_a, get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data)))
 		{
-			while (get_best(*pile_a, *pile_b, data) != (*pile_b)->content && get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data) != (*pile_a)->content)
-				rr(pile_a, pile_b);
+			rr(pile_a, pile_b);
+			if ((*pile_b)->content == get_best(*pile_a, *pile_b, data) || (*pile_a)->content == get_next_sup(*pile_a, get_best(*pile_a, *pile_b, data), 2, data))
+				break ;
 		}
 		put_val_top(pile_b, get_best(*pile_a, *pile_b, data), 'b');
 		put_val_top(pile_a, get_next_sup(*pile_a, (*pile_b)->content, 2, data), 'a');
@@ -129,34 +132,29 @@ int get_best(t_list *pile_a, t_list *pile_b, t_data data)
 	int	i;
 	int	size;
 	int val;
-	t_list  *temp;
 
 	i = 0;
 	if (!pile_b)
 		return (0);
 	size = ft_lstsize(pile_b);
-	op = size * 2;
 	val = (pile_b)->content;
-	temp = pile_b;
-	while (temp && op)
+	op = get_pos(pile_a, get_next_sup(pile_a, (pile_b)->content, 2, data));
+	while (op && pile_b)
 	{
-		tmp = get_pos(pile_a, get_next_sup(pile_a, (temp)->content, 2, data));
-		if (tmp > ((ft_lstsize(pile_a)) / 2))
-			tmp = ft_lstsize(pile_a) - tmp;
-		if (i > ((size) / 2))
+		tmp = get_pos(pile_a, get_next_sup(pile_a, (pile_b)->content, 2, data));
+		if (tmp > (ft_lstsize(pile_a) / 2))
+			tmp = (ft_lstsize(pile_a)) - tmp;
+		if (i > (size / 2))
 			tmp += size - i;
 		else
 			tmp += i;
-		if (tmp < op)
+		if (tmp <= op)
 		{
-			val = (temp)->content;
-			if (i <= size / 2)
-				op = tmp;
-			else
-				op = size - tmp;
+			val = (pile_b)->content;
+			op = tmp;
 		}
-		temp = temp->next;
 		i++;
+		pile_b = (pile_b)->next;
 	}
 	return (val);
 }

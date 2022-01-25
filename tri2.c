@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 14:05:06 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/24 15:43:00 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:51:54 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int get_next_sup(t_list *pile_a, int val, int nbPivot, t_data data)
     int tmp;
     int size;
     int result;
-    int debug;
     t_list  *temp;
 
     if (!(pile_a))
@@ -112,7 +111,6 @@ int get_next_sup(t_list *pile_a, int val, int nbPivot, t_data data)
         result = data.value[1];
 	while ((temp))
 	{
-        debug = (temp)->content;
         if ((temp)->content > val && (temp)->content <= result)
         {
              result = (temp)->content;
