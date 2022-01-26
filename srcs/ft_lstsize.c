@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/23 07:30:03 by abahmani          #+#    #+#             */
-/*   Updated: 2021/01/23 09:32:39 by abahmani         ###   ########.fr       */
+/*   Created: 2021/11/26 17:56:28 by brhajji-          #+#    #+#             */
+/*   Updated: 2022/01/25 21:32:13 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include"../includes/push_swap.h"
 
 int	ft_lstsize(t_list *lst)
-{
-	int		count;
-	t_list	*l;
+{	
+	int		i;
 
-	count = 0;
-	l = lst;
-	while (l)
+	if (!lst)
+		return (0);
+	i = 1;
+	while (lst && lst->next)
 	{
-		count++;
-		l = l->next;
+		i++;
+		lst = lst->next;
 	}
-	return (count);
+	return (i);
 }

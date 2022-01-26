@@ -3,33 +3,131 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 15:50:01 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:12:26 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/push_swap.h"
-#include<stdio.h>
-int	main(int ac, char **av)
+#include "../includes/push_swap.h"
+#include <stdio.h>
+void print_pile(t_list *pile_a, t_list *pile_b)
 {
-	t_elem	*pile_a = NULL;
-	//t_elem	*pile_b;
-	int		x;
-
-	if (ac > 1)
+	int x = 0;
+	printf("|A| |B|\n");
+	while ((pile_a) || (pile_b))
 	{
-		if (input_check(ac, av))
-			pile_a = init(ac, av, pile_a);
-		else
-			return (0);
-		x = 0;
-		while (pile_a)
+		if (pile_a)
 		{
-			////printf("elem %i = %i\n", x, *(pile_a->content));
+			printf("|%i| ", pile_a->content);
 			pile_a = pile_a->next;
 		}
+		else
+			printf("| | ");
+		if (pile_b)
+		{
+			printf("|%i|\n", pile_b->content);
+			pile_b = pile_b->next;
+		}
+		else
+			printf("| |\n");
+		x++;
 	}
+	printf("\n");
+}
+
+t_data	getbig_data(int *tab, int size, int nbPivot)
+{
+	int		i;
+	int		x;
+	t_data	data;
+
+	i = -1;
+	x = 0;
+	data.tab = tab;
+	data.nb[nbPivot] = size;
+	while(++i < size && x < nbPivot)
+	{
+		if (i == size - 1 || (i % (size / nbPivot)) == 0)
+		{
+			if (i == size - 1)
+			{
+				data.value[x] = tab[i - 1];
+				data.nb[x] = size;
+			}
+			else 
+			{
+				data.value[x] = tab[i];
+				data.nb[x] = i;
+			}
+			x++;
+		}
+	}
+	return (data);
+}
+
+t_data	get_data(int *tab, int size, int nbPivot)
+{
+	t_data	data;
+
+	data.tab = tab;
+	data.nb[nbPivot] = size;
+	data.value[0] = tab[(size - 1) / 2];
+	data.nb[0] = (size - 1) / 2;
+	data.value[1] = tab[(size - 1)];
+	data.nb[1] = (size - 1);
+	return (data);
+}
+
+void tri(t_list **pile_a, t_list **pile_b, t_data data, int size)
+{
+	if (size == 3 && !is_sort(*pile_a))
+	{
+		data = getbig_data(data.tab, size, size);
+		sort3(pile_a, data);
+	}
+	else if (size == 5 && !is_sort(*pile_a))
+	{
+		data = getbig_data(data.tab, size, size);
+		sort_five(pile_a, pile_b, data);
+	}
+	else if (size <= 10 && !is_sort(*pile_a))
+	{
+		data = getbig_data(data.tab, size, 3);
+		litlesort(pile_a, pile_b, data);
+	}
+	else if (size > 10 && !is_sort(*pile_a))
+	{
+		data = get_data(data.tab, size, 2);
+		sort(pile_a, pile_b, data);
+	}
+}
+
+int	main(int ac, char **av)
+{
+	t_list	*pile_a;
+	t_list	*pile_b;
+	t_data	data;
+	int		size;
+	
+	pile_b = NULL;
+	pile_a = NULL;
+	if (ac > 1)
+	{
+		if (!input_check(ac, av))
+		{
+			write(1, "Error\n", 6);
+			return (0);
+		}
+		pile_a = (t_list *)init(ac, av);
+		size = ft_lstsize(pile_a);
+		data.tab = put_tab(pile_a, size);
+		if (size == 2 && !is_sort(pile_a))
+			rotate(&pile_a, 'a');
+		else if(size > 2 && !is_sort(pile_a))
+			tri(&pile_a, &pile_b, data, size);
+	}
+	ft_free(&pile_a, data);
 	return (0);
 }

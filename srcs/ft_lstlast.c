@@ -3,23 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/23 07:29:03 by abahmani          #+#    #+#             */
-/*   Updated: 2021/01/23 09:27:34 by abahmani         ###   ########.fr       */
+/*   Created: 2021/11/26 18:04:45 by brhajji-          #+#    #+#             */
+/*   Updated: 2022/01/25 21:32:13 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include"../includes/push_swap.h"
 
-t_list*ft_lstlast(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*l;
-
-	l = lst;
 	if (!lst)
 		return (NULL);
-	while ((l->next))
-		l = l->next;
-	return (l);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

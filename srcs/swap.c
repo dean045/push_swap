@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 17:40:38 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/25 21:32:13 by brhajji-         ###   ########.fr       */
+/*   Created: 2021/12/15 15:06:45 by brhajji-          #+#    #+#             */
+/*   Updated: 2022/01/25 21:31:44 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/push_swap.h"
-#include<stdlib.h>
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void	swap(t_list *pile_x, char c)
 {
-	if (!alst || !new)
-		return ;
-	new->next = *alst;
-	*alst = new;
+	int	tmp;
+
+	if (ft_lstsize(pile_x) > 1)
+	{
+		tmp = pile_x->content;
+		pile_x->content = pile_x->next->content;
+		pile_x->next->content = tmp;
+		if (c)
+		{
+			write(1,"s", 1);
+			write(1, &c, 1);
+			write(1, "\n", 1);
+		}
+	}
+}
+
+void	ss(t_list *pile_a, t_list *pile_b)
+{
+	swap(pile_a, 0);
+	swap(pile_b, 0);
+	write(1,"ss\n", 3);
 }

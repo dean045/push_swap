@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 17:40:38 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/25 21:32:13 by brhajji-         ###   ########.fr       */
+/*   Created: 2022/01/26 16:55:29 by brhajji-          #+#    #+#             */
+/*   Updated: 2022/01/26 17:42:13 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/push_swap.h"
-#include<stdlib.h>
+#include "../includes/push_swap.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void ft_free(t_list **pile_a, t_data data)
 {
-	if (!alst || !new)
-		return ;
-	new->next = *alst;
-	*alst = new;
+    t_list *tmp;
+
+    while ((*pile_a))
+    {
+        tmp = (*pile_a);
+        (*pile_a) = (*pile_a)->next;
+        free(tmp);
+    }
+	free(data.tab);
+}
+
+void freetab(char **tab, int size, int ac)
+{
+    if (ac == 2)
+    {
+        while (--size >= 0)
+            free(tab[size]);
+    }
 }

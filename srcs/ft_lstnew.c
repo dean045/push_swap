@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/23 07:29:41 by abahmani          #+#    #+#             */
-/*   Updated: 2021/01/23 09:27:07 by abahmani         ###   ########.fr       */
+/*   Created: 2021/11/26 17:30:55 by brhajji-          #+#    #+#             */
+/*   Updated: 2022/01/25 22:13:17 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include<stdlib.h>
+#include "../includes/push_swap.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(int *content)
 {
-	t_list	*lst;
+	t_list	*new;
 
-	lst = malloc(sizeof(t_list));
-	if (!lst)
+	new = malloc(sizeof(t_list));
+	if (!new)
 		return (NULL);
-	lst->content = content;
-	lst->next = NULL;
-	return (lst);
+	new->content = *content;
+	new->next = NULL;
+	return (new);
 }

@@ -3,44 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brhajji- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:30 by brhajji-          #+#    #+#             */
-/*   Updated: 2021/12/14 15:22:23 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:36:41 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/push_swap.h"
+#include "../includes/push_swap.h"
 
-void	*ft_free(t_elem *pile)
+int	*sort_tab(int *tab, int size)
 {
-	free(pile);
-	return (NULL);
+	int	i;
+	int	j;
+	int tmp;
+
+	i = 0;
+	tmp = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (tab[i] > tab[j])
+			{
+				tmp = tab[i];
+				tab[i] = tab[j];
+				tab[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (tab);
 }
 
+int	*put_tab(t_list *pile_a, int size)
+{
+	int i;
+	int	*tab;
 
-void	*init(int ac, char **av, t_elem *pile_a)
+	tab = malloc(sizeof(int) * size);
+	i = -1;
+	if (!tab)
+		return (NULL);
+	while (++i < size)
+	{
+		tab[i] = pile_a->content;
+		pile_a = pile_a->next;
+	}
+	return (sort_tab(tab, size));
+}
+int tlen(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+t_list	*init(int ac, char **av)
 {
 	int		x;
-	t_elem	*tmp;
+	int		p;
+	char	**tmp;
+	t_list	*pile_tmp;
 
-	pile_a = malloc(sizeof(t_elem) * ac);
-	if (pile_a)
-		return (NULL);
-	tmp = malloc(sizeof(t_elem));
-	if (!tmp)
+	if (ac > 2)
 	{
-		free(pile_a);
-		pile_a = NULL;
+		tmp = av;
+		x = 2;
+	}
+	else
+	{
+		tmp = ft_split(av[1], ' ');
+		x = 1;
+	}
+	p = ft_atoi(tmp[x -1]);
+	pile_tmp = ft_lstnew(&p);
+	if (!pile_tmp)
+	{
+		freetab(tmp, tlen(tmp), ac);
 		return (NULL);
 	}
-	tmp->next = NULL;
-	x = ac;
-	while (--x > 0)
+	while (x < tlen(tmp))
 	{
-		tmp->content = ft_atoi(char[x]);
-		ft_lstadd_front(&pile_a, tmp);
+		p = ft_atoi(tmp[x]);
+		ft_lstadd_back(&pile_tmp, ft_lstnew(&p));
+		x++;
 	}
-	free(tmp);
-	tmp = NULL;
+	freetab(tmp, tlen(tmp), ac);
+	return (pile_tmp);
 }

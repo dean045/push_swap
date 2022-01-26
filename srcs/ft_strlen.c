@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/09 16:01:54 by abahmani          #+#    #+#             */
-/*   Updated: 2021/01/09 18:18:44 by abahmani         ###   ########.fr       */
+/*   Created: 2021/11/23 10:59:53 by brhajji-          #+#    #+#             */
+/*   Updated: 2022/01/25 21:32:13 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include"../includes/push_swap.h"
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	i;
+	int	len;
 
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }

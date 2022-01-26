@@ -3,61 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 10:44:44 by abahmani          #+#    #+#             */
-/*   Updated: 2021/01/24 08:49:11 by abahmani         ###   ########.fr       */
+/*   Created: 2021/11/25 17:16:36 by brhajji-          #+#    #+#             */
+/*   Updated: 2022/01/25 21:32:13 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include"../includes/push_swap.h"
+#include<stdlib.h>
 
-static	int		isinset(char c, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	int	i;
+	int		taille;
+	int		i;
+	char	*new;
 
-	i = 0;
-	while (set[i])
-	{
-		if (set[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static	char	*empty_str(void)
-{
-	char	*str;
-
-	str = malloc(sizeof(char));
-	if (!str)
+	if (!s1)
 		return (NULL);
-	str[0] = '\0';
-	return (str);
-}
-
-char			*ft_strtrim(char const *s1, char const *set)
-{
-	size_t		i;
-	size_t		j;
-	int			count;
-
-	if (!s1 || !set)
-		return (0);
+	taille = ft_strlen(s1) - 1;
 	i = 0;
-	j = ft_strlen(s1);
-	if (j != 0)
-		j--;
-	count = 0;
-	while (i < j && (isinset(s1[i], set) || isinset(s1[j], set)))
-	{
-		if (isinset(s1[i], set))
-			i++;
-		if (isinset(s1[j], set))
-			j--;
-	}
-	if (j <= i)
-		return (empty_str());
-	return (ft_substr(s1, i, j - i + 1));
+	while (s1[i] && ft_strchr(set, (int)s1[i]))
+		i++;
+	while (s1[i] && ft_strchr(set, (int)s1[taille]))
+		taille--;
+	new = ft_substr(s1, i, taille - i + 1);
+	return (new);
 }

@@ -3,112 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abahmani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 09:28:35 by abahmani          #+#    #+#             */
-/*   Updated: 2021/01/24 08:32:44 by abahmani         ###   ########.fr       */
+/*   Created: 2021/11/26 11:40:35 by brhajji-          #+#    #+#             */
+/*   Updated: 2022/01/26 16:54:16 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/push_swap.h"
 
-static size_t	count_str(char const *s, char c)
+static int	nb_mot(char const *str, char c, size_t t)
 {
 	size_t	i;
-	size_t	count;
+	int		nb;
 
 	i = 0;
-	count = 0;
-	while (s[i])
+	nb = 0;
+	while (i < t && str[i])
 	{
-		if (s[i + 1] && s[i] == c && s[i + 1] != c)
-			count++;
-		if (i == 0 && s[i] != c)
-			count++;
+		if (str[i] != c && (i == 0 || str[i - 1] == c))
+			nb++;
 		i++;
 	}
-	return (count);
+	return (nb);
 }
 
-static	void	clear_tab(char **tab, size_t size)
+static char	*put_in_tab(char const *str, char c)
 {
-	size_t	i;
+	int		x;
+	int		i;
+	char	*tab;
 
+	x = 0;
 	i = 0;
-	while (tab[i] && i < size)
-		free(tab[i++]);
-	free(tab);
+	tab = NULL;
+	while (str[x] != c && str[x])
+		x++;
+	tab = malloc (sizeof (char) * (x + 1));
+	if (!tab)
+		return (NULL);
+	while (i < x && str[i] != c && str[i])
+	{
+		tab[i] = str[i];
+		i++;
+	}
+	tab[i] = '\0';
+	return (tab);
 }
 
-static char		*split_str(char const *s, char c, size_t begin)
+char	**ft_split(char const *str, char c)
 {
 	size_t	i;
-	size_t	j;
-	size_t	count;
-	char	*str;
+	int		taille;
+	int		x;
+	char	**tab;
 
-	i = begin;
-	j = 0;
-	count = 0;
-	while (s[begin] && s[begin++] != c)
-	{
-		count++;
-	}
-	str = malloc(sizeof(char) * (count) + 1);
 	if (!str)
 		return (NULL);
-	while (s[i] && s[i] != c)
+	taille = 0;
+	i = -1;
+	x = nb_mot(str, c, ft_strlen(str));
+	tab = malloc (sizeof (char *) * (x + 1));
+	if (!tab)
+		return (NULL);
+	while (++i < ft_strlen(str) && str[i])
 	{
-		str[j++] = s[i++];
-	}
-	str[j] = '\0';
-	return (str);
-}
-
-static	char	**fill_str(char const *s, char c, size_t nb_str, char **tab_str)
-{
-	size_t	j;
-	size_t	i;
-
-	j = 0;
-	i = 0;
-	while (j < nb_str)
-	{
-		if (s[i] != c)
-		{
-			tab_str[j] = split_str(s, c, i);
-			if (tab_str[j] == NULL)
-			{
-				clear_tab(tab_str, nb_str);
-				return (NULL);
-			}
-			i += ft_strlen(tab_str[j++]);
-		}
-		else
+		while (str[i] == c)
 			i++;
+		if (taille < x && str[i] != c && (i == 0 || str[i - 1] == c))
+		{
+			tab[taille] = put_in_tab(&str[i], c);
+			taille++;
+		}
 	}
-	return (tab_str);
-}
-
-char			**ft_split(char const *s, char c)
-{
-	size_t	i;
-	size_t	j;
-	size_t	nb_str;
-	char	**tab_str;
-
-	i = 0;
-	j = 0;
-	if (!s)
-		return (0);
-	nb_str = count_str(s, c);
-	tab_str = malloc(sizeof(char*) * (nb_str + 1));
-	if (!tab_str)
-		return (NULL);
-	tab_str[nb_str] = NULL;
-	if (nb_str == 1)
-		tab_str[0] = ft_strtrim(s, &c);
-	else if (!fill_str(s, c, nb_str, tab_str))
-		return (NULL);
-	return (tab_str);
+	tab[taille] = NULL;
+	return (tab);
 }
