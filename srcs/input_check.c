@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:22:31 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/27 14:30:16 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 20:24:37 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	check_digit(char **tmp, int size)
 		len = ft_strlen(tmp[i]);
 		while (j < len)
 		{
-			if (!ft_isdigit(tmp[i][j]) || (j == 0 && tmp[i][j] != '-'
-				&& !ft_isdigit(tmp[i][j])))
+			if (!ft_isdigit(tmp[i][j]) && !(tmp[i][j] == '-'
+				&& ft_isdigit(tmp[i][j+1]) && j == 0))
 				return (0);
 			j++;
 		}
@@ -86,9 +86,9 @@ int	input_check(int ac, char **av)
 	while (++x < tlen(tmp))
 	{
 		i = x;
-		if ((ft_strcmp(tmp[x], "2147483648") > 0 && tmp[x][0] != '-'
+		if ((ft_strcmp(tmp[x], "2147483647") > 0 && tmp[x][0] != '-'
 			&& ft_strlen(tmp[x]) >= 10) || (tmp[x][0] == '-'
-			&& ft_strcmp(tmp[x], "-2147483649") > 0 && ft_strlen(tmp[x]) >= 11))
+			&& ft_strcmp(tmp[x], "-2147483648") > 0 && ft_strlen(tmp[x]) >= 11))
 			return (freetab(tmp, tlen(tmp), ac));
 		while (++i < tlen(tmp))
 		{

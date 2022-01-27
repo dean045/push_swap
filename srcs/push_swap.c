@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/27 14:36:22 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 20:21:04 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,10 @@ int	main(int ac, char **av)
 	t_list	*pile_a;
 	t_list	*pile_b;
 	t_data	data;
-	char	**tab;
 
 	pile_b = NULL;
 	pile_a = NULL;
-	tab = ft_split(av[1], ' ');
-	if (ac > 1 || (ac == 2 && tlen(tab) > 1))
+	if (ac > 1)
 	{
 		if (!input_check(ac, av))
 		{
@@ -102,6 +100,5 @@ int	main(int ac, char **av)
 		else if (ft_lstsize(pile_a) > 2 && !is_sort(pile_a))
 			tri(&pile_a, &pile_b, data, ft_lstsize(pile_a));
 	}
-	freetab(tab, tlen(tab), 2);
 	return (ft_free(&pile_a, data));
 }
