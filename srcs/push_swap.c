@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/26 17:12:26 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 11:46:57 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,12 @@ int	main(int ac, char **av)
 	t_list	*pile_a;
 	t_list	*pile_b;
 	t_data	data;
-	int		size;
+	char	**tab;
 	
 	pile_b = NULL;
 	pile_a = NULL;
-	if (ac > 1)
+	tab = ft_split(av[1], ' ');
+	if (ac > 1 || (ac == 2 && tlen(tab) > 1))
 	{
 		if (!input_check(ac, av))
 		{
@@ -121,13 +122,13 @@ int	main(int ac, char **av)
 			return (0);
 		}
 		pile_a = (t_list *)init(ac, av);
-		size = ft_lstsize(pile_a);
-		data.tab = put_tab(pile_a, size);
-		if (size == 2 && !is_sort(pile_a))
+		data.tab = put_tab(pile_a, ft_lstsize(pile_a));
+		if (ft_lstsize(pile_a) == 2 && !is_sort(pile_a))
 			rotate(&pile_a, 'a');
-		else if(size > 2 && !is_sort(pile_a))
-			tri(&pile_a, &pile_b, data, size);
+		else if(ft_lstsize(pile_a) > 2 && !is_sort(pile_a))
+			tri(&pile_a, &pile_b, data, ft_lstsize(pile_a));
 	}
+	freetab(tab, tlen(tab), 2);
 	ft_free(&pile_a, data);
 	return (0);
 }

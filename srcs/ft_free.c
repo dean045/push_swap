@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:55:29 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/26 17:42:13 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 11:52:14 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void freetab(char **tab, int size, int ac)
     {
         while (--size >= 0)
             free(tab[size]);
+        free(tab);
     }
 }
