@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:24:06 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/25 21:31:44 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:38:35 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*rotate(t_list **pile_x, char c)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	if (*pile_x && (*pile_x)->next)
 	{
@@ -24,7 +24,7 @@ void	*rotate(t_list **pile_x, char c)
 		tmp->next = NULL;
 		if (c)
 		{
-			write(1,"r", 1);
+			write(1, "r", 1);
 			write(1, &c, 1);
 			write(1, "\n", 1);
 		}
@@ -36,5 +36,5 @@ void	rr(t_list **pile_a, t_list **pile_b)
 {
 	rotate(pile_a, 0);
 	rotate(pile_b, 0);
-	write(1,"rr\n", 3);
+	write(1, "rr\n", 3);
 }

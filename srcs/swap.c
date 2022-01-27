@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:06:45 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/25 21:31:44 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:39:18 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	swap(t_list *pile_x, char c)
 		pile_x->next->content = tmp;
 		if (c)
 		{
-			write(1,"s", 1);
+			write(1, "s", 1);
 			write(1, &c, 1);
 			write(1, "\n", 1);
 		}
@@ -34,5 +34,5 @@ void	ss(t_list *pile_a, t_list *pile_b)
 {
 	swap(pile_a, 0);
 	swap(pile_b, 0);
-	write(1,"ss\n", 3);
+	write(1, "ss\n", 3);
 }

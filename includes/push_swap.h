@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:56:17 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/26 17:12:47 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:32:49 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 
-void 	freetab(char **tab, int size, int ac);
-void	ft_free(t_list **pile_a, t_data data);
+int 	freetab(char **tab, int size, int ac);
+int		ft_free(t_list **pile_a, t_data data);
 int 	get_best(t_list *pile_a, t_list *pile_b, t_data data);
 int		input_check(int ac, char **av);
 void	sort_suite(t_list **pile_a, t_list **pile_b, t_data data);
@@ -49,7 +49,6 @@ int 	get_best(t_list *pile_a, t_list *pile_b, t_data data);
 int 	get_next_sup(t_list *pile_a, int val, t_data data);
 int 	is_data(int val, int nbPivot, t_data data);
 void 	sort_five(t_list **pile_a, t_list **pile_b, t_data data);
-void	print_pile(t_list *pile_a, t_list *pile_b);
 int		is_sort(t_list *pile_x);
 t_list	*init(int ac, char **av);
 void 	tri(t_list **pile_a, t_list **pile_b, t_data data, int size);

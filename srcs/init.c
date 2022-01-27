@@ -6,7 +6,7 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:30 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/26 17:36:41 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 12:50:43 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	*sort_tab(int *tab, int size)
 {
 	int	i;
 	int	j;
-	int tmp;
+	int	tmp;
 
 	i = 0;
 	tmp = 0;
@@ -40,7 +40,7 @@ int	*sort_tab(int *tab, int size)
 
 int	*put_tab(t_list *pile_a, int size)
 {
-	int i;
+	int	i;
 	int	*tab;
 
 	tab = malloc(sizeof(int) * size);
@@ -54,7 +54,8 @@ int	*put_tab(t_list *pile_a, int size)
 	}
 	return (sort_tab(tab, size));
 }
-int tlen(char **tab)
+
+int	tlen(char **tab)
 {
 	int	i;
 
@@ -83,13 +84,8 @@ t_list	*init(int ac, char **av)
 		tmp = ft_split(av[1], ' ');
 		x = 1;
 	}
-	p = ft_atoi(tmp[x -1]);
+	p = ft_atoi(tmp[x - 1]);
 	pile_tmp = ft_lstnew(&p);
-	if (!pile_tmp)
-	{
-		freetab(tmp, tlen(tmp), ac);
-		return (NULL);
-	}
 	while (x < tlen(tmp))
 	{
 		p = ft_atoi(tmp[x]);

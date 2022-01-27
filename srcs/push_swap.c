@@ -6,36 +6,11 @@
 /*   By: brhajji- <brhajji-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:53:35 by brhajji-          #+#    #+#             */
-/*   Updated: 2022/01/27 11:46:57 by brhajji-         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:36:22 by brhajji-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include <stdio.h>
-void print_pile(t_list *pile_a, t_list *pile_b)
-{
-	int x = 0;
-	printf("|A| |B|\n");
-	while ((pile_a) || (pile_b))
-	{
-		if (pile_a)
-		{
-			printf("|%i| ", pile_a->content);
-			pile_a = pile_a->next;
-		}
-		else
-			printf("| | ");
-		if (pile_b)
-		{
-			printf("|%i|\n", pile_b->content);
-			pile_b = pile_b->next;
-		}
-		else
-			printf("| |\n");
-		x++;
-	}
-	printf("\n");
-}
 
 t_data	getbig_data(int *tab, int size, int nbPivot)
 {
@@ -44,24 +19,23 @@ t_data	getbig_data(int *tab, int size, int nbPivot)
 	t_data	data;
 
 	i = -1;
-	x = 0;
+	x = -1;
 	data.tab = tab;
 	data.nb[nbPivot] = size;
-	while(++i < size && x < nbPivot)
+	while (++i < size && x < nbPivot)
 	{
 		if (i == size - 1 || (i % (size / nbPivot)) == 0)
 		{
 			if (i == size - 1)
 			{
-				data.value[x] = tab[i - 1];
+				data.value[++x] = tab[i - 1];
 				data.nb[x] = size;
 			}
-			else 
+			else
 			{
 				data.value[x] = tab[i];
 				data.nb[x] = i;
 			}
-			x++;
 		}
 	}
 	return (data);
@@ -80,7 +54,7 @@ t_data	get_data(int *tab, int size, int nbPivot)
 	return (data);
 }
 
-void tri(t_list **pile_a, t_list **pile_b, t_data data, int size)
+void	tri(t_list **pile_a, t_list **pile_b, t_data data, int size)
 {
 	if (size == 3 && !is_sort(*pile_a))
 	{
@@ -110,7 +84,7 @@ int	main(int ac, char **av)
 	t_list	*pile_b;
 	t_data	data;
 	char	**tab;
-	
+
 	pile_b = NULL;
 	pile_a = NULL;
 	tab = ft_split(av[1], ' ');
@@ -125,10 +99,9 @@ int	main(int ac, char **av)
 		data.tab = put_tab(pile_a, ft_lstsize(pile_a));
 		if (ft_lstsize(pile_a) == 2 && !is_sort(pile_a))
 			rotate(&pile_a, 'a');
-		else if(ft_lstsize(pile_a) > 2 && !is_sort(pile_a))
+		else if (ft_lstsize(pile_a) > 2 && !is_sort(pile_a))
 			tri(&pile_a, &pile_b, data, ft_lstsize(pile_a));
 	}
 	freetab(tab, tlen(tab), 2);
-	ft_free(&pile_a, data);
-	return (0);
+	return (ft_free(&pile_a, data));
 }
